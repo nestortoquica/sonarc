@@ -1,0 +1,38 @@
+
+<div class="content-body" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="24px" style="margin-top: 48px;">
+  
+  <app-lockers-map arrayMarkerMap="{{arrayMarker}}" arrayListLockers="{{arrayLockers}}"></app-lockers-map>
+
+  <div class="content-cards" 
+        fxLayout="row"       
+        fxLayout.xs="column"
+        fxLayout.sm="column"
+        fxLayoutGap = "36px"
+        fxLayoutGap.xs = "0px" 
+        fxLayoutGap.sm = "0px"  >
+      <mat-card fxFlex="33%">
+        <mat-card-header>
+          <mat-card-title class="title-card">Paquetes entregados (últimos 15 días)</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-graph">
+          <app-chart-paquetes axisX="{{responseQuantityMonthAxisX}}" axisY="{{responseQuantityMonthAxisY}}" seriesName="{{nameY}}"></app-chart-paquetes>
+        </mat-card-content>
+      </mat-card>
+      <mat-card fxFlex="33%">
+        <mat-card-header>
+          <mat-card-title class="title-card" >Total de entregas por transportista</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-graph">
+          <app-chart-entregas arrayName="{{responseQuantityCarrierName}}" arrayY="{{responseQuantityCarrierY}}"></app-chart-entregas>
+        </mat-card-content>
+      </mat-card>
+      <mat-card fxFlex="33%">
+        <mat-card-header>
+          <mat-card-title class="title-card">Total de entregas por ubicación</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="card-graph">
+          <app-chart-entregas arrayName="{{responseQuantityLockerName}}" arrayY="{{responseQuantityLockerY}}"></app-chart-entregas>
+        </mat-card-content>
+      </mat-card>
+    </div>
+</div>

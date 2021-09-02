@@ -1,0 +1,99 @@
+<div *ngIf="sub_domain!='ikea' && sub_domain!='localhost'" class="container"     
+    fxLayout="row" fxLayoutAlign="center center"
+    fxLayoutGap.lg="60px"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutGap.sm="0px"
+    fxLayoutGap.xs="0px">    
+    <div class="item item-1" fxFlex.md="50%" fxFlex="30%">
+        <div class="box" fxLayout="column">
+            <a class="logo" routerLink=""><img src="\assets\images\vivipost-logo.svg" alt="logo"></a>
+            <!-- <div class="title-h1">{{title}}</div> -->
+            <form  class="box-form" fxLayout="column">
+                <app-notification 
+                    *ngIf="tMsg != ''" 
+                    [type]="typeMsg"
+                    [remove] = 'removeMsg'
+                    message="{{tMsg}}">
+                </app-notification>
+                    <input type="text"
+                    class="box-input {{styles_input}}" 
+                    maxlength="50" 
+                    name="user"
+                    placeholder="{{ 'login.user' | translate }}" 
+                    matInput
+                    required
+                    [(ngModel)]="user"
+                    (focus)="onFocus()">
+                    <input type="password" 
+                    class="box-input {{styles_input}}" 
+                    maxlength="50" 
+                    name="password" 
+                    placeholder="{{ 'login.password' | translate }}"
+                    matInput
+                    required
+                    [(ngModel)]="password"
+                    (focus)="onFocus()">
+
+                <div class="link">
+                    <a class="link-forgot" routerLink="/forgot-password">{{ 'login.forgotpassword' | translate }}</a>
+                </div>
+                <div>
+                    <button type="submit" class="button-red" mat-raised-button (click)="validate()" >{{ 'login.login' | translate }}</button>
+                    <a class="link-register" routerLink="/register">{{ 'login.register' | translate }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- <div class="item item-2" fxFlex>
+        <img src="\assets\images\dashboard.svg">
+    </div> -->
+</div>
+
+<div class="ikea-container" *ngIf="sub_domain=='ikea' || sub_domain=='localhost'">
+    <div class="container">
+        <div class="item item-2">
+            <div class="box" fxLayout="column">
+                <a class="logo" routerLink=""><img src="\assets\images\ikea.png" alt="logo"></a>
+                <p>IKEA Lockers</p>
+                <!-- <div class="title-h1">{{title}}</div> -->
+                <form  class="box-form" fxLayout="column">
+                    <app-notification 
+                    *ngIf="tMsg != ''" 
+                    [type]="typeMsg"
+                    [remove] = 'removeMsg'
+                    message="{{tMsg}}">
+                </app-notification>
+                <input type="email"
+                class="{{styles_input}}" 
+                maxlength="50" 
+                name="user"
+                placeholder="{{ 'login.user' | translate }}" 
+                required
+                [(ngModel)]="user"
+                (focus)="onFocus()">
+                <input type="password" 
+                class=" {{styles_input}}" 
+                maxlength="50" 
+                name="password" 
+                placeholder="{{ 'login.password' | translate }}"
+                        required
+                        [(ngModel)]="password"
+                        (focus)="onFocus()">                        
+                        <div class="link">
+                            <a class="link-forgot" routerLink="/forgot-password">{{ 'login.forgotpassword' | translate }}</a>
+                        </div>
+                        <br>
+                            <button type="submit" class="button-ikea" mat-raised-button (click)="validate()">{{ 'login.login' | translate }}</button>
+                    </form>
+            </div>
+        </div>
+        <!-- <div class="item item-2" fxFlex>
+            <img src="\assets\images\dashboard.svg">
+        </div> -->
+    </div>
+    <footer>
+        <span>Powered by Vivipost</span>
+        <b>V 1.0.0</b>
+    </footer>
+</div>

@@ -1,0 +1,31 @@
+<div>
+    <div class="header-box">
+      <p mat-dialog-title>Crear Usuario</p>
+      <button mat-dialog-close class="btn-close"><mat-icon aria-hidden="false">clear</mat-icon></button>
+    </div>
+    <mat-dialog-content class="body">
+        <div fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%">
+            <div fxFlex="90%" fxLayout="column">
+                <mat-label class="label">Nombre</mat-label>
+                <input type="text" class="box-input" maxlength="30"required>
+            </div>
+            <div fxFlex="90%" fxLayout="column">
+                <mat-label class="label">Apellido</mat-label>
+                <input type="text" class="box-input" maxlength="30"required>
+            </div>
+            <div fxFlex="90%" fxLayout="column">
+                <mat-label class="label">E-mail</mat-label>
+                <input type="text" class="box-input" maxlength="30" required>
+            </div>
+            <div fxFlex="90%" fxLayout="column">
+                <mat-label class="label">Empresa</mat-label>
+                <select required class="box-input" style="width:356px;" >
+                    <option>Vivipost</option>
+                </select>
+            </div>            
+        </div>
+    </mat-dialog-content>
+    <div align="start" class="footer-box">
+      <a mat-button [mat-dialog-close]="true" class="btn button-red">Crear</a>
+      <a mat-button class="btn btn-white" [mat-dialog-close]="true">Cancelar</a>
+</div>

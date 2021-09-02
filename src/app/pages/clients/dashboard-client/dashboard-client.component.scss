@@ -1,0 +1,118 @@
+
+
+.title-locker{
+  color: #222529;
+  font-family: "Noto-Ikea-Bold";
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0;
+  line-height: 18px;
+}
+
+#list-item{
+  margin-bottom: 8px;
+}
+
+.container{
+  color: #979797 !important;
+  background-color: #fbfcfe;
+}
+
+app-menu{
+  font-family: Noto-Sans !important;
+  box-shadow: 0px 5px 15px #f7f7f7;
+}
+h2{margin: 0;}
+  
+.mat-card{
+  border: 1px solid #D6D6D6;
+  margin-bottom: 15px !important;
+}
+
+.small-card{
+  height: 40%;
+}
+
+mat-card-title{
+  text-transform: capitalize !important;
+}
+
+
+
+.big{
+  font-size: 40px;
+  font-family: "Noto-Ikea-Bold";
+}
+
+.top-info{
+  background: linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(253,253,253,0.5) 100%);
+  text-align: center;
+  padding: 20px 0px 0px;
+  width: 100%;
+  box-shadow: 0px -50px 30px #f8f8f8;
+  border-radius: 130px;
+  border: 1px solid #D6D6D6;
+  margin-bottom: 10px;
+}
+
+ol{
+  margin: auto;
+  width: 30%;
+}
+
+.box-address {
+  text-align: left;
+  display: inline-block;
+  color: #666666;
+  font-family: "Noto-Ikea-Regular";
+  font-size: 16px;
+  line-height: 22px;
+  width: 200px;
+  p {
+    margin: 5px 0;
+    .text-edit {
+      color: #FF4848;
+      font-family: "Noto-Ikea-Regular";
+      font-size: 13px;
+      line-height: 22px;
+      text-decoration: underline;
+      padding-left: 10px;
+      line-height: 18px;
+    }
+  }
+}
+  
+@media (max-width: 1150px) {
+  h1{
+    font-size: 20px;
+  }
+}
+app-menu-client{
+  position: sticky;
+  z-index: 11;
+  font-family: "Noto-Ikea-Regular" !important;
+  box-shadow: 0px 5px 15px #f7f7f7;
+}
+
+li{
+  cursor: pointer;
+}
+
+.small-content{
+  height: 100px;
+}
+
+.table-card{
+  margin-bottom: 20px;
+}
+
+#map-content{
+  padding: 3px;
+}
+agm-map{
+  height: 350px;
+  ::ng-deep .agm-map-container-inner{
+    border-radius: 5px;
+  }
+}

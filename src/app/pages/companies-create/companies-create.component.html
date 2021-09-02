@@ -1,0 +1,48 @@
+<div class="content-body" fxLayout="column" fxLayoutGap="24px">
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Datos de la Compañía</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%" style="padding: 24px;">
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Nombre de la compañía</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="company_name" required>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">RFC</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="rfc" required>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Asignar un nuevo usuario</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%" style="padding: 24px;">
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Nombre</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="name" required>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Apellido</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="last_name" required>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">E-mail</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="email" required>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Empresa</mat-label>
+                <select required [(ngModel)]="company">
+                    <option disabled value="undefined"> Seleccionar</option>  
+                    <option *ngFor="let item of company" [value]="item.id_company">{{item.company_name}}</option>                 
+                </select>
+            </div>
+        </mat-card-content>
+        <mat-card-footer fxLayoutGap="8px">
+            <button class="btn button-red">Crear</button>
+            <button class="btn btn-white">Cancelar</button>
+        </mat-card-footer>
+    </mat-card>        
+</div>

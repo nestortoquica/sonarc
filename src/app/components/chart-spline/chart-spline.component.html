@@ -1,0 +1,12 @@
+<div *ngIf="responseSeries.length != 0; then blockReturned else defaultBlockReturned"></div>
+<ng-template #blockReturned>
+  <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions"
+  style="display: block; width: 100%; margin-top:7%;"></highcharts-chart>
+</ng-template>
+
+<ng-template #defaultBlockReturned>
+  <div style="height: 261px;" fxLayout="column" fxLayoutAlign="center center" > 
+    <img  style="padding: 30px 0px;;" class="img-default" src="\assets\images\img-card.png">
+    <p class="info">{{ 'dashboard.cards.card_empty' | translate }}</p>
+  </div>
+</ng-template>

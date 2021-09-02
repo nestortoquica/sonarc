@@ -1,0 +1,9 @@
+  <mat-dialog-content class="body-box">
+    <div>
+        <p style="font-family:Lato-Regular;">¿Seguro desea Eliminar?</p>
+    </div>
+  </mat-dialog-content>
+  <div align="start" class="footer-box" fxLayout fxLayoutGap="18px">
+    <button [mat-dialog-close]="true" class="btn button-red" >Si</button>
+    <button mat-dialog-close="close" class="btn btn-white">{{ 'general.cancel' | translate }}</button>
+  </div>

@@ -1,0 +1,27 @@
+<div>
+    <div class="header-box">
+      <p mat-dialog-title>Logs</p>
+      <button mat-dialog-close class="btn-close"><mat-icon aria-hidden="false">clear</mat-icon></button>
+    </div>
+    <mat-dialog-content class="body" fxLayout="column" fxLayoutGap="18px">
+        <div fxLayout="row" fxLayoutAlign="start none" fxLayoutGap="42px">
+           <p class="infoRow"><b>Usuario:</b> {{data.name}}</p>
+           <p *ngIf="data.type" class="infoRow"><b>Tipo:</b> {{data.type}}</p>
+           <p *ngIf="data.company" class="infoRow"><b>Compañía:</b> {{data.company}}</p>
+           <p class="infoRow"><b>Status:</b> {{data.status}}</p>      
+        </div>
+        <div>
+            <table class="table-logs">
+                <tr>
+                    <th>Fecha de evento</th>
+                    <th>evento</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr *ngFor="let log of dataLogsUser">
+                    <td style="width: 15%;">{{log.registration_date}}</td>
+                    <td style="width: 20%;">{{log.topic_name}}</td>
+                    <td style="width: 65%;">{{log.description}}</td>
+                </tr> 
+            </table>
+        </div>
+    </mat-dialog-content>

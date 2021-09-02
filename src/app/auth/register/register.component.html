@@ -1,0 +1,175 @@
+<div class="container" fxFlex="100%" fxLayout="column" fxLayoutGap="10px">
+    <div class="box" fxLayout="column">
+        <a class="logo" routerLink=""><img src="\assets\images\vivipost-logo.svg" alt="logo"></a>
+        <div class="title">{{ 'register.register_title' | translate }}</div>
+        <div class="box-form" fxLayout="column">
+            <div fxLayout="column" class="group">
+                <div fxLayoutGap="1%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start none">
+                    <div fxLayout="column" fxFlex="45%">
+                        <mat-label>{{ 'register.name' | translate }}</mat-label>
+                        <input 
+                        type="text" 
+                        class="box-input2"
+                        [ngClass]="{'border-input-error': errorNames}"
+                        maxlength="30" 
+                        name="name"
+                        placeholder="{{ 'register.name' | translate }}" 
+                        matInput
+                        required
+                        [(ngModel)]="name">
+                    </div>
+                    <div fxLayout="column" fxFlex="45%">
+                        <mat-label>{{ 'register.apellido' | translate }}</mat-label>
+                        <input 
+                        type="text" 
+                        class="box-input2"
+                        [ngClass]="{'border-input-error': errorNames}"
+                        maxlength="30" 
+                        name="apell"
+                        placeholder="{{ 'register.apellido' | translate }}" 
+                        matInput
+                        required
+                        [(ngModel)]="apell">
+                    </div>
+                </div>
+                <div *ngIf="errorNames != ''" class="msg-error">{{errorNames}}</div>
+            </div>
+            <div fxLayout="column" class="group">
+                <div fxLayout="column" fxFlex="90%">
+                
+                    <mat-label>{{ 'general.email' | translate }}</mat-label>
+                    <input type="email" 
+                    id="email"
+                    class="box-input2"
+                    [ngClass]="{'border-input-error': errorEmail}"
+                    name="email"
+                    placeholder="" 
+                    matInput
+                    maxlength="50" 
+                    fullWidth
+                    required
+                    (focusout)="focusOutFunction()"
+                    [(ngModel)]="email">
+                    <div *ngIf="errorEmail != ''" class="msg-error">{{errorEmail}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="column" class="group">
+                <div fxLayout="column" fxFlex="90%">
+                    <mat-label>{{ 'login.password' | translate }}</mat-label>
+                    <input type="password" 
+                    class="box-input2"
+                    [ngClass]="{'border-input-error': errorPassword}"
+                    name="password"
+                    placeholder="{{ 'register.val_pass' | translate }}"
+                    maxlength="50"
+                    minlength="6" 
+                    matInput
+                    fullWidth
+                    required
+                    [(ngModel)]="password">
+                </div>
+            </div>    
+            
+            <div fxLayout="column" class="group">
+                <div fxLayout="column" fxFlex="90%">
+
+                    <mat-label>{{ 'register.repeat_password' | translate }}</mat-label>
+                    <input type="password" 
+                    class="box-input2"
+                    [ngClass]="{'border-input-error': errorPassword}"
+                    placeholder="{{ 'register.repeat_password' | translate }}" 
+                    name="confirmPassword"
+                    maxlength="50"
+                    minlength="6"
+                    matInput
+                    fullWidth
+                    required
+                    [(ngModel)]="confirmPassword">
+                    {{confirmPassword}}
+                    <div *ngIf="errorPassword != ''" class="msg-error">{{errorPassword}}</div>
+                </div>
+            </div>
+
+            <div fxLayout="column">
+                <mat-label>{{ 'register.phone' | translate }}</mat-label>
+                <mat-label style="font-size: 10px;">{{ 'register.register-sub-title' | translate }}</mat-label>
+                <div fxLayout="row" fxLayoutAlign="center stretch">
+                    <mat-select style="width: 86px;"
+                        name="code_cell"
+                        required 
+                        [(ngModel)]="code_cell"
+                        class="box-input2"
+                        disabled="{{disabledFields}}" >
+                        <mat-option>+1</mat-option>
+                        <mat-option>+52</mat-option>
+                        <mat-option>+58</mat-option>
+                    </mat-select>
+                    <input style="width: calc(100% - 194px); margin: 0px 10px; "
+                        type="tel" 
+                        class="box-input2" 
+                        name="cell"
+                        placeholder="" 
+                        matInput
+                        maxlength="50" 
+                        fullWidth
+                        required
+                        [(ngModel)]="cell"
+                        disabled="{{disabledFields}}">
+                        <button style="height: 40px; width: 88px!important; padding: 0; vertical-align: top"
+                            mat-raised-button
+                            class="button-red"
+                            (click)="buttonValidate()"
+                            >{{ 'register.btn-validate' | translate }}
+                        </button>
+                </div>
+            </div>
+
+            <div fxLayout="column" class="group">
+                <mat-label>{{ 'register.validation_code' | translate }}</mat-label>
+                <div fxLayout="row" fxLayoutAlign="center stretch">
+                    <input 
+                    id="validation"
+                    type="text" 
+                    class="box-input2"
+                    [ngClass]="{'border-input-error': errorCode}"
+                    placeholder="" 
+                    name="validation_code"
+                    maxlength="50" 
+                    matInput
+                    fullWidth
+                    required
+                    [(ngModel)]="validation_code"
+                    disabled="{{disabledFields}}">
+                    <button style="height: 40px; width: 88px; padding: 0; vertical-align: top"
+                        mat-raised-button
+                        class="button-red"
+                        disabled="{{buttonConfirmar}}"
+                        id ="btnValidationCode"
+                        (click)="buttonConfirm()"
+                        >{{ 'register.btn-confirm' | translate }}</button>
+                        <div id="checkVal" style="display: none;" class="material-icons checkTrue">check_circle</div>
+                </div>
+                <div *ngIf="errorCode != ''" class="msg-error">{{errorCode}}</div>
+            </div>
+            <div fxFlex style="margin-bottom: 16px;">
+                <mat-checkbox name="check_terms" [(ngModel)]="check_terms"><span style="text-decoration:none!important;" class="text_normal">{{ 'register.acept' | translate }}</span><span class="text-truncated">{{ 'register.term_service' | translate }}</span></mat-checkbox>
+            </div>                
+            <div fxFlex style="margin: auto;">
+                <re-captcha (resolved)="resolved($event)" siteKey="{{ public_key_recaptcha }}"></re-captcha>
+            </div>
+            
+            <button mat-raised-button
+                fullWidth
+                (click)="validate()"
+                class="button-red btn-register"
+                >{{ 'register.register' | translate }}</button>
+            
+            <a class="link-register" href="/">{{ 'register.have_account' | translate }}</a>
+        </div>
+        <div class="footer">
+            <p>Vivipost © {{year}}</p>
+        </div>
+    </div>
+
+</div>

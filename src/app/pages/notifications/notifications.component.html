@@ -1,0 +1,10 @@
+<div class="content-body" fxLayout="row" fxLayoutAlign="center none">
+    <mat-card fxFlex="80%" fxLayout="column" fxLayoutAlign="start stretch" class="card-notications">
+        <div class="notification" *ngFor="let noti of arrayNotications">
+            <p class="title">Tu paquete “{{noti.tracking_number}}”</p>
+            <p class="body">{{noti.description}}</p>
+            <p class="body"><b>{{noti.locker_name}}</b> - {{noti.locker_address}}</p>
+            <p class="text-date">{{noti.registration_date}}</p>
+        </div>
+    </mat-card>
+</div>

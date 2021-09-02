@@ -1,0 +1,64 @@
+
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="36px">
+        <div fxLayoutGap="2%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around  center" fxLayoutAlign.xs="space-around stretch" fxLayoutAlign.sm="space-around stretch" >
+            <p fxFlex="50%" class="title-cam">Lantana01</p>
+            <div fxFlex="50%" style="text-align: end; padding-top: 10px;">
+                <p class="text-status"><b>{{ 'general.status' | translate }}: </b>Activo</p>
+                <button class="red_btn" style="margin: 0 60px 0 20px;">{{ 'lockers.restart' | translate }}</button>
+            </div>
+        </div>
+        <div fxLayoutGap="2%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around  center" fxLayoutAlign.xs="space-around stretch" fxLayoutAlign.sm="space-around stretch" >
+            <div fxFlex="50%">
+                <iframe *ngIf="url_cam_event" [src]="urlSafe" scrolling="auto" style="height: 385px; width: 100%; margin:0; padding:0; height:100%; border:none;"></iframe>
+                <img *ngIf="!url_cam_event" id="img_event" src="{{ dataResultCamera.url_view }}" alt="{{ dataResultCamera.monitor_name }}" scrolling="auto" style="height: 385px;   width: 100%; border-radius: 8px; box-shadow: 2px 2px 13px 0 rgba(211,0,112,0.12);">
+                <p class="point text-normal">{{ dataResultCamera.monitor_name }}  </p>
+            </div>
+            <div fxFlex="50%" style="margin-top: 10px;">
+               <form action="">
+                   <p class="text-normal" style="margin-bottom: 40px;">{{ 'cameras.request_camera' | translate }}</p>
+                   <div fxLayout="column">
+                        <mat-label class="text-normal">{{ 'general.date' | translate }}:</mat-label> 
+                        <input style="width: 392px; margin-bottom: 10px; border: 1px solid #B2B2B2;"
+                        type="date" 
+                        class="box-input1" 
+                        name="date"
+                        placeholder="" 
+                        matInput 
+                        fullWidth
+                        required
+                        [(ngModel)]="date">    
+                    </div>
+                    <div fxLayout="column">
+                        <mat-label class="text-normal">{{ 'general.start_time' | translate }}:</mat-label>
+                        <input style="width: 392px; margin-bottom: 10px; border: 1px solid #B2B2B2;"
+                        type="time" 
+                        class="box-input1" 
+                        name="time_start"
+                        placeholder="" 
+                        matInput
+                        fullWidth
+                        required
+                        [(ngModel)]="time_start">
+                    </div>
+                    <div fxLayout="column">
+                        <mat-label class="text-normal">{{ 'general.end_time' | translate }}:</mat-label>
+                        <input style="width: 392px; margin-bottom: 10px; border: 1px solid #B2B2B2;"
+                        type="time" 
+                        class="box-input1" 
+                        name="time_end"
+                        placeholder="" 
+                        matInput
+                        fullWidth
+                        required
+                        [(ngModel)]="time_end">
+                    </div>
+                    <button class="red_btn" style="width: 178px; height: 39px;" (click)="queryDataCamEvent()">{{ 'cameras.make_request' | translate }}</button>
+               </form>
+            </div>
+        </div>
+        <app-tableP *ngIf="dataColumn.length > 0"  dataForTable="{{dataTableAux}}" columns="{{dataColumn}}" (click)="onclickEvent()"></app-tableP>
+    </div>
+<app-footer></app-footer>
+</div>

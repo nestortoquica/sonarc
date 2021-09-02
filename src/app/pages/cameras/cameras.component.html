@@ -1,0 +1,32 @@
+
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="2%">
+        <div fxLayoutGap="2%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around  center" fxLayoutAlign.xs="space-around stretch" fxLayoutAlign.sm="space-around stretch" >
+            <p fxFlex="50%" class="title-cam">Lantana01</p>
+            <div fxFlex="50%" style="text-align: end; padding-top: 10px;">
+                <p class="text-status"><b>{{ 'general.status' | translate }}: </b>Activo</p>
+                <button class="red_btn" style="margin: 0 60px 0 20px;">{{ 'lockers.restart' | translate }}</button>
+            </div>
+        </div>
+        <div fxLayoutGap="2%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around  center" fxLayoutAlign.xs="space-around stretch" fxLayoutAlign.sm="space-around stretch" >
+             <div *ngIf="dataResultCamera.length; then iframeCamera1 else imageEmpty1"></div>
+             <ng-template #iframeCamera1>
+                <div fxFlex="50%" *ngFor="let item of dataResultCamera; let i = index">
+                    <img height="385px" width="100%" src="{{ dataResultCamera[i].url_view}}" alt="{{ dataResultCamera[i].monitor_name }}" scrolling="auto" style="border-radius: 8px; ">
+                    <p (click)="onSeeCamera(i)" class="point text-normal">{{ dataResultCamera[i].monitor_name }}</p>
+               </div>
+            </ng-template>
+            <ng-template #imageEmpty1> 
+                <div fxFlex fxLayout="column" fxLayoutGap="1%">
+                    <mat-card style="height: 385px; width: 90%; border-radius: 8px; text-align: center;">
+                        <img class="point" src="\assets\images\img-card.png" style="width: 150px; padding: 100px 0;">
+                    </mat-card><br>
+                    <p class="point text-normal">Cámara #1</p> 
+                </div>
+                
+            </ng-template>                
+        </div>
+    </div>
+<app-footer></app-footer>
+</div>

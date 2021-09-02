@@ -1,0 +1,28 @@
+.msg{
+    height: 60px;
+    padding: 24px;
+    border-radius: 8px;
+    background: #fff;
+    border-style: solid;
+    border-width: 1px;
+    .icon{
+        font-size: 25px;
+    }
+}
+
+.msg-success{
+    border-color: #00DF65;
+    color: #00DF65;
+}
+
+.msg-err{
+    border-color: #FF4848;
+    color: #FF4848;
+}
+
+.btn-close{
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    outline: none;
+}

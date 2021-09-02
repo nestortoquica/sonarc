@@ -1,0 +1,105 @@
+@import '../../../assets/styles/variebles';
+.header-box{
+    border-bottom: 1px solid #dcdcdc;
+    padding: 18px 25px;
+    .title-modal{
+        margin: 0;
+        display: inline-block;
+        text-transform: uppercase;
+        color: #666666;	
+        font-family: Lato-Heavy;	
+        font-size: 16px;	
+        line-height: 18px;
+    }
+    button{
+        background: transparent;
+        border: none;
+        vertical-align: middle;
+        float: right;
+        outline: none;
+        cursor: pointer;
+        color: #c5c5c5;	
+        .mat-icon{
+            font-size: 16px;
+        }
+    }
+}
+
+.option-address{
+    p{
+        margin: 0;
+        line-height: 12px;
+    }
+}
+
+.text-italic{
+    color: #BBBBBB;
+    font-family: Lato-Regular;
+    font-size: 11px;
+    font-style: italic;
+    letter-spacing: 0.18px;
+}
+
+.mat-option{
+    border-bottom: 1px solid #E4E4E4;
+}
+
+input, select, .text-select{
+    color: #767676;
+    font-family: Lato-Regular;
+    font-size: 14px;
+    letter-spacing: 0.25px;
+}
+
+.body-box{
+    margin: 18px 7px;
+    mat-label{
+        color: #3D3D3D;
+        font-family: Lato-Heavy;
+        font-size: 13px;
+        letter-spacing: 0.23px;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+    }
+    .msg-code{
+        color: #FF4848;
+        font-family: Lato-Regular;
+        font-size: 12px;
+        margin: 0;
+        letter-spacing: 0.3px;
+    }
+    .err{
+        border: 1px solid #FF4848;
+        color: #FF4848;
+        padding: 0px 18px;
+        background: #FFF;
+        border-radius: 2px;
+        color: #222;
+        font-family: Lato-Regular;
+        font-size: 16px;
+        letter-spacing: -0.08px;
+        line-height: 18px;
+        height: 40px;
+    }
+    .err-label{
+        color: #FF4848;
+    }
+}
+
+.footer-box{
+    border-top: 1px solid #dcdcdc;
+    padding: 18px 25px;
+}
+
+.b-input{
+    padding: 11px 12px;
+    background: #FFF;
+    border-radius: 2px;
+    border: 1px solid #EEEEEE;
+    margin-bottom: 18px;
+    color: $input-color-text;	
+    font-family: Lato-Regular;	
+    font-size: 16px;	
+    letter-spacing: -0.08px;	
+    line-height: 18px;
+}

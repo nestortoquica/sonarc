@@ -1,0 +1,35 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="24px">
+        <div class="content-cards" fxLayoutGap="2%" 
+            fxLayout="row" 
+            fxLayout.sm="column" fxLayout.xs="column" 
+            fxLayoutAlign="space-around  center" 
+            fxLayoutAlign.xs="space-around stretch" 
+            fxLayoutAlign.sm="space-around stretch"
+            *ngIf="typeUser == 'd-ad'">  
+            <mat-card fxFlex="25%" class="card-sm">
+                <mat-card-title class="title-card-md">{{ 'lockers.locker' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> 6 </mat-card-content>
+            </mat-card>
+
+            <mat-card fxFlex="25%" class="card-sm">
+                <mat-card-title class="title-card-md">{{ 'lockers.pack_delivered' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> 1,029 </mat-card-content>       
+            </mat-card>
+
+            <mat-card fxFlex="25%" class="card-sm">
+                <mat-card-title class="title-card-md">{{ 'lockers.collected_packages' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> 998 </mat-card-content>
+            </mat-card>
+
+            <mat-card fxFlex="25%" class="card-sm">
+                <mat-card-title class="title-card-md">{{ 'lockers.waiting_packages' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> 31 </mat-card-content>
+            </mat-card>
+        </div>
+        <app-lockers-map arrayMarkerMap="{{arrayMarker}}" arrayListLockers="{{arrayLockers}}" *ngIf="typeUser==2"></app-lockers-map>
+        <app-tableP dataForTable="{{dataTableAux}}" columns="{{dataColumn}}"></app-tableP>
+    </div>
+</div>
+<app-footer></app-footer>

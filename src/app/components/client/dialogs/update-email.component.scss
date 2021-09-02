@@ -1,0 +1,36 @@
+.container{
+    margin: 4%;    
+    .box{
+    	padding: 4%;
+    	min-width: 370px;
+    	max-width: 401px;
+   		.box-form{
+			mat-label{
+				margin-bottom: 5px;
+			}
+			.mat-form-field-appearance-fill .mat-form-field-flex{
+				background: #fff !important; 
+			}
+		}
+        
+    }
+    .button-ikea{
+	    width: 100%;
+	    background-color: #0067B3;
+	    border-radius: 2px;
+	    border: none;
+	    color: white;
+	    padding: 5px;
+	    margin: 5px auto;
+	}
+	    
+	.button-close{		
+	    background-color: #8196A5; 
+	    width: 100%;	    
+	    border-radius: 2px;
+	    border: none;
+	    color: white;
+	    padding: 5px;
+	    margin: 5px auto;
+	}
+}

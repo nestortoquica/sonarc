@@ -1,0 +1,86 @@
+mat-accordion{
+    width:100%;
+    color:#A5A5A5;
+    font-size: 16px;
+    mat-expansion-panel-header{
+        // background: #F7F7F7;
+        .panel{
+            width:69%;
+            margin-right: 0;
+            .icon-card{
+                margin-right: 7px;
+            }
+        }
+    }
+    .panel-content{
+        display: flex;
+        padding-top: 16px;
+        color: #767676;
+        p{
+            margin: 0 0 5px 0;
+        }
+    }
+}
+
+.card-bg{
+    padding: 44px 0 0 20px;
+    height: 82.59px;
+    width: 179.61px;
+    border-radius: 9.45px;
+    background: linear-gradient(187.2deg, #0D98C9 0%, #005387 100%), linear-gradient(184.06deg, #57B6D7 0%, #3999C4 27.51%, #0364A1 100%), linear-gradient(180deg, #7D858D 0%, #414447 100%);
+}
+
+.h-accordion{
+    display: flex; 
+    padding: 24px 24px 10px; 
+    width: 100%;
+    .label{
+        font-size: 15px;
+    }
+}
+
+.label{
+    color: #3D3D3D;
+    font-family: Lato-Heavy;
+    font-size: 13px;
+    letter-spacing: 0.23px;
+    line-height: 13px;
+    text-transform: uppercase;
+}
+
+input, select, option{
+    box-sizing: border-box;
+    height: 36px;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    outline:none;
+    color: #767676;
+    padding: 0 12px;
+}
+
+.input-w{
+    width: 380px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+  }
+  
+:host ::ng-deep .mat-radio-container, :host ::ng-deep .mat-radio-outer-circle, :host ::ng-deep .mat-radio-inner-circle{
+    height: 12px;
+    width: 12px;
+}
+
+.card-footer{
+    padding: 0 24px !important;
+}
+
+//-------------------------------------------------------------------------------------------------

@@ -1,0 +1,69 @@
+
+<mat-card-header>
+    <mat-card-title class="title-card">
+        <div class="search-box"><mat-icon id="search">search</mat-icon>
+        <mat-form-field>
+            <input matInput (keyup)="applyFilter($event)" placeholder="{{'dashboard.search' | translate}}">
+        </mat-form-field>
+        </div>        
+    </mat-card-title>        
+    <button mat-button (click)="exporter.exportTable('xlsx')" class="download-button">
+    {{'general.download' | translate}} Excel </button>
+</mat-card-header>
+<mat-card-content>    
+    <table mat-table matTableExporter [dataSource]="dataSource" #exporter="matTableExporter">
+        <ng-container *ngFor="let column of displayedColumns; let i = index" matColumnDef="{{column}}">
+            <th mat-header-cell *matHeaderCellDef class="text-center"> {{'table.'+column | translate}}</th>
+            <td class="lock" mat-cell *matCellDef="let element; let j = index" class="text-center"> 
+                <p *ngIf="column!='signature' && column!='actions' && column!='pickedUp' && column!='status' && column!='extend' && column!='inLocker' && i!=0 && column!='employeId'">
+                    {{element[column]}}
+                </p> 
+                <span  *ngIf="i==0">
+                    {{element[column]}}
+                </span>
+                <p *ngIf="column=='status'">
+                    <mat-form-field id="expired" (click)="picker.open()">
+                        <input [min]="minDate" [max]="maxDate" [(ngModel)]="date[j]" name="{{element[column]}}" matInput [matDatepicker]="picker" readonly>                                               
+                        <mat-datepicker (closed)="updateTemp(element, date[j])" touchUi #picker></mat-datepicker>
+                    </mat-form-field>
+                    <span *ngIf="element[column]!='RECOLECTADO'" (click)="picker.open()">{{'table.'+element[column].toLowerCase() | translate}}<br></span>
+                    <span *ngIf="element[column]=='RECOLECTADO'">{{'table.'+element[column].toLowerCase() | translate}}</span>
+                    <span *ngIf="date[j]!=undefined" (click)="picker.open()">{{'table.until' | translate}} <br></span>
+
+                    <span *ngIf="date[j]" id="new-date">{{date[j] | date: 'dd/MM/yyy'}}</span>
+
+                    <span *ngIf="date[j]==undefined && ((element.id_status_code_package == 17 && element.status_package == 14) || (element.id_status_code_package == 32 && element.status_package == 14))"
+                    (click)="picker.open()" 
+                    [class]="element[column]">
+                        {{'table.extend'|translate}}?
+                    </span>
+                </p>
+                <p *ngIf="column=='inLocker'">
+                    {{element[column] | date: 'dd-MMM-yyy'}}
+                </p>
+                <span (click)="signatureModal(element.signImg)" class="link" *ngIf="column=='signature' && element.signature">
+                    {{ 'table.view' | translate }}
+                </span>
+                <span *ngIf="!element.signature && column=='signature'">{{ 'table.not_yet' | translate }}</span>
+                <span (click)="pickedModal(element.pickImg)" class="link" *ngIf="element.pickedUp && column=='pickedUp'">{{'table.view' | translate}}</span>
+                <span *ngIf="!element.pickedUp && column=='pickedUp'">{{'table.not_yet' | translate}}</span>
+                <span *ngIf="column=='actions'">
+                    <i *ngIf="!date[j]" (click)="edit(element)" class="{{element[column][0]}}"></i>
+                    <span *ngIf="date[j]" >                        
+                        <button class="cancel" mat-raised-button (click)="cancel()">Cancel</button>
+                        <button class="apply {{ok}}" mat-raised-button (click)="update()">Apply</button>
+                    </span>
+                </span>
+
+                <span class="info_employee" *ngIf="column=='employeId'" (click)="seeUser(element[column])"  matTooltip="{{ element.delivery_employee_name }}"> {{ element[column] }}</span>
+
+
+            </td>
+        </ng-container>
+       
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr class="table-row" mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSize]="100" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+</mat-card-content>

@@ -1,0 +1,110 @@
+<app-menu-client></app-menu-client>
+<div class="content-body user">
+    <mat-card>
+        <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+          <mat-card-title class="title-card">
+              <span *ngIf="!edit">{{ 'user.createUser' | translate }}</span>
+              <span *ngIf="edit">{{ 'user.editUser' | translate }}</span>
+          </mat-card-title>
+            <div (click)="back();" id="back">
+              <i class="fas fa-chevron-left"></i>
+              {{'user.backUsers' | translate }}
+            </div>
+        </mat-card-header>
+        <mat-card-content id="user-content">
+            <p>{{'user.addInfo' | translate}}</p>
+            <br>
+            <form #userForm="ngForm">
+                <mat-grid-list cols="2" rowHeight="70px" (window:resize)="onResize($event)">
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="cpass">{{'user.userType' | translate}}</label>
+                            <mat-select *ngIf="!edit" [(value)]="userType"  (selectionChange)="onSelect($event.value)">
+                                <mat-option *ngFor="let item of types" [value]="item.id_type_employee">{{item.name_type_employee}}</mat-option>
+                            </mat-select>
+                            
+                            <input *ngIf="edit" class="disabled"  matInput name="userType" [value]="user.userType.name" type="text" required disabled="true">
+
+                            <!--<mat-select disabled *ngIf="edit" [(value)]="user.userType.id">
+                                <mat-option *ngFor="let item of types" [value]="item.id_type_employee">{{item.name_type_employee}}</mat-option>
+                            </mat-select>
+                             <input *ngIf="!edit" matInput id="userType" name="userType" [(ngModel)]="userType" [value]="userType" type="text" required> -->
+                            <!-- <input *ngIf="edit" matInput id="userType" name="userType" [(ngModel)]="user.userType" [value]="userType" type="text" required> -->
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="fname">{{'table.fullName' | translate}}</label>
+                            <input *ngIf="!edit" matInput [(ngModel)]="name" name="name" id="fname" type="text" autocomplete="off" required minlength="3" maxlength="60">
+                            <input *ngIf="edit" matInput [(ngModel)]="user.fullName" name="name" id="fname" type="text" autocomplete="off" required minlength="3" maxlength="60">
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="e-mail">{{'table.email' | translate}}</label>
+                            <input *ngIf="!edit" matInput [(ngModel)]="email" id="e-mail" name="e-mail" type="email" autocomplete="false" required minlength="5" maxlength="80">
+                            <input *ngIf="edit" class="disabled" disabled="true" matInput [(ngModel)]="user.email" [value]="user.email" id="e-mail" name="e-mail" type="email" autocomplete="false" required minlength="5" maxlength="80" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="id">{{'table.employeId' | translate}}</label>
+                            <input disabled="{{ disabled_input_employee }}" *ngIf="!edit" matInput [(ngModel)]="id" name="id" id="id" type="number" required minlength="8" maxlength="8">
+                            <input  *ngIf="edit" class="disabled" disabled="true" matInput [(ngModel)]="user.employeId" [value]="user.employeId" name="id" id="id" type="number" maxlength="8" minlength="7" required>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="npass">{{'user.pass' | translate}}</label>
+                            <input matInput [(ngModel)]="password" id="npass" name="npass" [type]="show?'text':'password'" autocomplete="new-password" maxlength="18" minlength="6" >
+                            <mat-icon (click)="hidePassword()" class="eye">
+                                visibility
+                            </mat-icon>
+                        </mat-form-field>
+                    </mat-grid-tile>
+
+                    <mat-grid-tile [class.fullWidth-3]="breakpoint==1" class="field-3">
+                        <button (click)="generate()" mat-button><mat-icon>vpn_key</mat-icon>{{'user.generatePass' | translate}}</button>
+                    </mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-form-field [class.fullWidth]="breakpoint==1">
+                            <label for="cpass">{{'user.confirmPass' | translate}}</label>
+                            <input matInput id="cpass" name="cpassword" [(ngModel)]="cpassword" [value]="cpassword" [type]="show?'text':'password'" maxlength="18" minlength="6" >
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    
+                    <!--
+                    <mat-grid-tile class="field">
+                        <mat-checkbox color="primary">{{'user.recover' | translate}}</mat-checkbox>
+                    </mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">
+                        <mat-checkbox id="checkbox" color="primary">{{'user.sendEmail' | translate}}</mat-checkbox>
+                    </mat-grid-tile>
+                    -->
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+                    <mat-grid-tile [class.fullWidth]="breakpoint==1" class="field">                        
+                        <button *ngIf="!edit" mat-button [disabled]="userForm.form.invalid || password != cpassword" id="create" (click)="createUser()">
+                            <span>{{'user.create' | translate}}</span>
+                        </button>
+                        <button *ngIf="edit" mat-button [disabled]="userForm.form.invalid || password != cpassword" id="create" (click)="editUser()" class="{{ cllas_err }}">
+                            <span>{{'user.submit' | translate}}</span>
+                        </button> 
+                    </mat-grid-tile>
+                    <mat-grid-tile class="field-2"></mat-grid-tile>
+                     
+                </mat-grid-list>
+                
+            </form>
+        </mat-card-content>
+      </mat-card>
+</div>
+<app-client-footer></app-client-footer>

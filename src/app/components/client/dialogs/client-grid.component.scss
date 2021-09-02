@@ -1,0 +1,58 @@
+.grid{
+    align-items: start !important;
+  }
+  
+  .grid_lockers{
+    border: 0.5px solid #eee;
+    margin-bottom: 10px;
+  }
+  .grid_locker{
+      border: 1px solid #ddd;
+      background-color: white;
+  }
+
+  .LOCKER_CERRADO:hover{
+    border: 1px solid #98B1D3;
+  }
+  .LOCKER_OCUPADO:hover{
+    border: 1PX solid #5e0909;
+  }
+  .LOCKER_FALLO:hover{
+    border: 1px solid #c2932f;
+  }
+
+#main-container{
+  width: 33%;
+  margin: auto;
+  @media (max-width: 1000px) {
+    width: 60%;
+  }
+}
+
+.legende{
+  font-size: 12px;
+  p{
+    margin: 5px 0px;
+  }
+}
+  
+  .LOCKER_BLOCK{ margin: 0px 4px; box-sizing: border-box; border: 0.5px solid #CDCDCD; width: 14px !important } //disponible
+  .LOCKER_CERRADO{ background: #9EC57C; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible
+  .LOCKER_FALLO{ background: #ffda1a; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //dañado
+  .LOCKER_OCUPADO{ background: #ff0000; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //ocupado
+  .LOCKER_ABIERTO { background: #0067B3; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible
+  .SCREEN { box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible
+
+  figure{
+    width: 80%;
+    margin: auto;
+    img{
+      width: 100%;
+    }
+    @media (max-width: 1000px) {
+      width: 100%;
+      img{
+        width: 100%;
+      }
+    }
+  }

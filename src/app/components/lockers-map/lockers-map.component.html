@@ -1,0 +1,19 @@
+<mat-card fxFlex>
+    <mat-card-header>
+      <mat-card-title class="title-card">Lockers</mat-card-title>
+    </mat-card-header>
+    <mat-card-content id="map-card" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between stretch">
+      <app-google-maps fxFlex latitud="{{lat}}" longitud="{{lng}}" coords="{{arrayMarker}}" style="margin: 24px;"></app-google-maps>
+      <div fxFlex="25%" style="border-left: 1px solid #EEEEEE;">
+        <div class="content-search" fxLayout="row" fxLayoutAlign="space-between stretch">
+          <input class="search" type="text" matInput placeholder="Buscar lockers..." (keyup)="filterLockersList($event)">
+          <i class="fa fa-search" style="color: #676767;"></i>
+        </div>
+        <mat-list role="list">
+          <mat-list-item *ngFor="let item of arrayLockers; let last = last" role="listitem" [ngClass]="{'border-b':!last}">
+            <p style="margin: 0;" (click)="onSeeLocker(item.id_locker, item.locker_name)">{{item.locker_name}}</p></mat-list-item>
+        </mat-list>
+      </div>
+      
+    </mat-card-content>
+</mat-card>

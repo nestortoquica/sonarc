@@ -1,0 +1,21 @@
+<div class="content-body">
+  <mat-tab-group animationDuration="0ms" class="tabs">
+    <mat-tab label="{{ 'user.system' | translate }}">
+        <div style="margin-top: 5.5%;">
+            <app-tableP dataForTable="{{dataTableSysUser}}" tabUser="1" columns="{{dataColumnSysUser}}"></app-tableP>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="{{ 'user.associates' | translate }}">
+        <div style="margin-top: 5.5%;">
+            <app-tableP dataForTable="{{dataTableAssociates}}" tabUser="2" columns="{{dataColumnAssociates}}"></app-tableP>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="{{ 'user.users' | translate }}">
+        <div style="margin-top: 5.5%;">
+            <app-tableP dataForTable="{{dataTableUser}}" tabUser="3" columns="{{dataColumnUser}}"></app-tableP>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,218 @@
+<div class="content-body" fxLayout="column" fxLayoutGap="24px">
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Datos generales</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%" style="padding: 24px;">
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Nombre del locker</mat-label>
+                <input class="input-w" type="text" maxlength="30" [(ngModel)]="locker_name" required>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Descripción</mat-label>
+                <textarea matInput
+                    cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize"
+                    cdkAutosizeMinRows="9"
+                    cdkAutosizeMaxRows="9"></textarea>
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Compañía</mat-label>
+                <select required [(ngModel)]="company">
+                    <option disabled value="undefined"> Seleccionar</option>  
+                    <option *ngFor="let item of company" [value]="item.id_company">{{item.company_name}}</option>                 
+                </select>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="24px">
+                <div fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Tipo de ubicación</mat-label>
+                    <select required [(ngModel)]="location">
+                        <option disabled [ngValue]="undefined"> Seleccionar</option>
+                        <option value="test">Test</option>
+                    </select>
+                </div>
+                <div fxLayout="row" fxLayoutGap="60px">
+                    <div fxLayout="column" fxLayoutGap="18px">
+                        <mat-label class="label">Tipo de Locker</mat-label>
+                        <mat-radio-group [(ngModel)]="type_locker" aria-label="Select an option" fxLayoutGap="24px">
+                            <mat-radio-button value="1">Interior</mat-radio-button>
+                            <mat-radio-button value="2">Exterior</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div fxLayout="column" fxLayoutGap="18px" style="margin-left: 36px !important;">
+                        <mat-label class="label">Privacidad de locker</mat-label>
+                        <mat-radio-group [(ngModel)]="privacy_locker" aria-label="Select an option" fxLayoutGap="24px"
+                        (change)="onCheckedPrivacy()">
+                            <mat-radio-button value="private">Privado</mat-radio-button>
+                            <mat-radio-button value="public">Público</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div *ngIf="codeInvitedQ" fxLayout="column" fxLayoutGap="18px" style="margin-left: 36px !important;">
+                        <mat-label class="label">Requiere codigo de invitado</mat-label>
+                        <mat-radio-group [(ngModel)]="questionCode" aria-label="Select an option" fxLayoutGap="24px"
+                        (change)="onCheckedCode()">
+                            <mat-radio-button value="yes">Si</mat-radio-button>
+                            <mat-radio-button value="no">No</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <div *ngIf="codeInvitedA && codeInvitedQ" fxLayout="column" fxLayoutGap="18px" style="margin-left: 36px !important;">
+                        <mat-label class="label">Código de invitación</mat-label>
+                        <input style="width: 200px;" type="text" maxlength="30" [(ngModel)]="codeInvited" required>
+                    </div>
+                </div>
+            </div>
+            <div fxLayout="column" fxLayoutGap="18px" style="margin-left: 36px !important;">
+                <mat-label class="label">Subir archivo de residentes</mat-label>
+
+                <div *ngIf="!files.length" class="updateFile" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px" 
+                appDragDrop (files)="filesDropped($event)">
+                    <i class="fas fa-upload" style="color: #767676; font-size: 22px;"></i><p class="textDivFile">Suelta tu archivo aquí (xls o csv)</p>
+                </div>
+                <div *ngFor="let file of files">
+                    <p><i class="far fa-file" style="margin-right: 5px;"></i> <b>File name:</b> {{file.name}}</p>
+                </div>
+                
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Ubicación</mat-card-title>
+        </mat-card-header>
+        <mat-card-content style="height: 388px;" fxLayout="row" fxLayoutAlign="space-between stretch">
+            <div class='content-map'>
+                <div class="content-search">
+                    <input class="input-search input-w" (keyup)="filterLockersList($event)" type="text" matInput placeholder="Buscar...">
+                    <mat-icon matSuffix class="icon-search">search</mat-icon>
+                </div>
+                <app-google-maps fxFlex latitud="{{lat}}" longitud="{{lng}}" coords="{{arrayMarker}}" (id_locker)="lockerAddress($event)" style="margin: 24px;"></app-google-maps>
+            </div>
+            
+            <div fxFlex="25%" class="info-map">
+                <p>{{locker_address}}</p>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Datos de Hardware</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="24px" style="padding: 24px;">
+            <div fxLayout="column" fxLayoutGap="24px">
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Serial</mat-label>
+                    <input class="input-w" type="text" maxlength="30" id="serial" [(ngModel)]="serial">
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Pc</mat-label>
+                    <input class="input-w" type="text" maxlength="30" required id="pc" (blur)="isValidIP($event)">
+                </div>
+            </div>
+            <div fxLayout="column" fxLayoutGap="24px">
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">WAP</mat-label>
+                    <input class="input-w" type="text" maxlength="30" required id="wap" (blur)="isValidIP($event)">
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Código de Locker <i class="fas fa-question-circle"></i></mat-label>
+                    <input class="input-w" type="text" maxlength="30" id="code_locker" [(ngModel)]="code_locker">
+                </div>
+            </div>
+            <div fxLayout="column">
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">AP (MIKROTIK)</mat-label>
+                    <input class="input-w" type="text" maxlength="30" required id="ap" (blur)="isValidIP($event)">
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Mecanismo para cobros</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%" style="padding: 24px;">
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">Tipo de cobro</mat-label>
+                <select required [(ngModel)]="typePayment">
+                    <option disabled value="undefined"> Seleccionar</option>
+                    <option value="1"> Suscripción</option>
+                    <option value="2"> Pago por uso</option> 
+                    <option value="3"> Pago por comportamiento</option>                
+                </select>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start end" fxLayoutGap="18px">
+                <div fxLayout="column" fxLayoutGap="18px" style="margin-left: 36px !important;">
+                    <mat-label class="label">Costo por suscripción</mat-label>
+                    <mat-radio-group [(ngModel)]="subscriptionQ" aria-label="Select an option" fxLayoutGap="24px" style="padding-bottom: 11px;">
+                        <mat-radio-button value="free">Gratis</mat-radio-button>
+                        <mat-radio-button value="share">Cuota</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                    <input style="width: 100px;" type="text" maxlength="30" [(ngModel)]="cost" required>
+                    <mat-label class="text-mat">MXN</mat-label>
+                </div>
+            </div>
+            <div *ngIf="typePayment==2 || typePayment==3" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="24px">
+                <div fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Días de uso sin recargo</mat-label>
+                    <select required [(ngModel)]="location" style="width: 80px;">
+                        <option value="test">3</option>
+                    </select>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                    <mat-label class="label">Recargo por día</mat-label>
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                        <input style="width: 100px;" type="text" maxlength="30" [(ngModel)]="cost" required>
+                        <mat-label class="text-mat">MXN</mat-label>
+                    </div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <mat-card fxFlex>
+        <mat-card-header>
+          <mat-card-title class="title-card">Configuración de módulos</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="12px" style="padding: 24px;">
+            
+            <div cdkDropList cdkDropListOrientation="horizontal" class="content-dropList" (cdkDropListDropped)="drop($event)">
+                <div class="box-dList" *ngFor="let item of items; let i = index;" cdkDrag (mouseenter)="onMouseEnter($event,item.id)" (mouseleave)="onMouseLeave($event,item.id)">
+                    <img src="/assets/images/module_{{item.type}}.svg">
+                    <a *ngIf="btnDelete == item.id && item.type!='cm'" (click)="onDeleteModule(item.id, i)"><i class="far fa-trash-alt"></i></a>
+                </div>
+            </div>
+
+            <div *ngIf="add_mod" class="add-module" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px" (click)="onAddModule()">
+                <i class="fas fa-plus"></i>
+                <p>Agregar <br> módulo</p>
+            </div>
+            <div *ngIf="choose_mod" class="choose-module">
+                <h2>Elegir</h2>
+                <div fxLayout="column" fxLayoutAlign="center stretch" fxLayoutGap="8px" style="height: 60%;">
+                    <button class="btn-choose" (click)="onChoose('a1')">A1</button>
+                    <button class="btn-choose" (click)="onChoose('a2')">A2</button>
+                </div>
+            </div>
+            <div *ngIf="modal_mod" class="modal-module" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="18px" style="padding: 18px;">
+                <div fxLayout="column" fxLayoutGap="8px" style="width: 100%;">
+                    <mat-label class="label">Serial relé estatus</mat-label>
+                    <input type="text" id="serialStatus" [(ngModel)]="serial_status" (keyup)="onToUpper($event);" maxlength="20"required style="width:100%">
+                </div>
+                <div fxLayout="column" fxLayoutGap="8px" style="width: 100%;">
+                    <mat-label class="label">Serial relé acción</mat-label>
+                    <input type="text" id="serialAction" [(ngModel)]="serial_action" (keyup)="onToUpper($event);" maxlength="20"required style="width:100%">
+                </div>
+                <div fxLayout="row" fxLayoutGap="8px">
+                    <button class="btn button-red" (click)="onAddSerial()">Agregar</button>
+                    <button class="btn btn-white" (click)="onCloseModal()">Cancelar</button>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-footer fxLayoutGap="8px">
+            <button class="btn button-red" (click)="onCreateLocker()">Crear</button>
+            <button class="btn btn-white">Cancelar</button>
+          </mat-card-footer>
+    </mat-card>
+    
+</div>

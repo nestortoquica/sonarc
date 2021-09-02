@@ -1,0 +1,46 @@
+<!-- *locker -->
+<div fxLayout="column" fxLayoutAlign="center stretch">
+    <div fxLayout="row">
+        <mat-grid-list fxFlex="100%" rowHeight="0.9vw" [cols]=6 gutterSize="2" *ngFor="let m of module" class="grid_lockers">
+            <div
+            *ngFor="let l of m.locker">
+            <div *ngIf="l.class=='SCREEN'">
+                <mat-grid-tile
+                [ngClass]="l.class"
+                [colspan]="l.cols" 
+                [rowspan]="l.rows"
+                class="grid_locker">
+                    <div style="border: 0.5px solid #CDCDCD; width: 35px; height: 60px; padding-top: 4px;" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+                        <div style="height: 20px; width: 65%; border: 0.5px solid #CDCDCD;"></div>
+                        <div style="height: 2px; width: 11px; border: 0.5px solid #CDCDCD;"></div>
+                    </div>
+                </mat-grid-tile>
+            </div>
+            <div *ngIf="l.class=='NULL'">
+                <mat-grid-tile [ngClass]="l.class"
+                [colspan]="l.cols" 
+                [rowspan]="l.rows"></mat-grid-tile>
+            </div>
+            <div *ngIf="l.class!='SCREEN' && l.class!='NULL'">
+                <mat-grid-tile
+                    [ngClass]="(l.class == 'LOCKER_OCUPADO') ? (l.status_name == 'VENCIDO')  ? 'LOCKER_VENCIDO' : l.class : l.class"
+                    [colspan]="l.cols" 
+                    [rowspan]="l.rows"
+                    class="grid_locker"
+                    [matTooltipClass]="safari?'safari-tip':'grid-tip'"
+                    matTooltipPosition="above"
+                    [matTooltip]="itemToolInfo(m, l)">
+                </mat-grid-tile>
+            </div>
+        </div>
+        </mat-grid-list>
+    </div>
+    <!-- *leyenda -->
+    <div fxFlex class="legende" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+        <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #9EC57C;"> </div><p>{{ 'lockers.available_door' | translate }} ({{tt_available}})</p></div>
+        <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #ff0000;"> </div><p>{{ 'lockers.busy_door' | translate }} ({{tt_occupied}})</p></div>
+        <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #ffda1a;"> </div><p>{{ 'lockers.fail_door' | translate }} ({{tt_damaged}})</p></div>
+        <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #0067B3;"> </div><p>{{ 'lockers.door_open' | translate }} ({{tt_open}})</p></div>
+        <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #f6821f;"> </div><p>{{ 'lockers.expired' | translate }} ({{tt_expired}})</p></div>
+    </div>
+</div>

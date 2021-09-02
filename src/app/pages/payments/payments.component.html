@@ -1,0 +1,28 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+
+    <div class="content-body">
+        <div *ngIf="!admin" fxLayoutGap="24px" fxLayout="row" 
+            fxLayout.sm="column" fxLayout.xs="column" 
+            fxLayoutAlign="space-around  center" 
+            fxLayoutAlign.xs="space-around stretch" 
+            fxLayoutAlign.sm="space-around stretch">
+            <mat-card fxFlex="45%">
+                <mat-card-title class="title-card-md" style="text-align: left;">{{'payments.company'|translate }}:</mat-card-title>
+                <mat-card-content class="cards-quantity">{{company_data.name_company}}</mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="25%" class="card-right">
+                <mat-card-title class="title-card-md">{{'payments.total_packages_period'|translate}}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{company_data.total_packaje}} </mat-card-content>       
+            </mat-card>
+            <mat-card fxFlex="30%" class="card-right">
+                <mat-card-title class="title-card-md">{{'payments.total_amount'|translate}}</mat-card-title>
+                <mat-card-content class="cards-quantity">${{company_data.total_amount}}MXN</mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <app-tableP dataForTable="{{dataTable}}" columns="{{dataColumn}}" (date_result)="getDatepicker($event)"></app-tableP>
+        </div>
+    </div>
+    <app-footer></app-footer>
+</div>

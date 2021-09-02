@@ -1,0 +1,50 @@
+::ng-deep .highcharts-container{
+    margin: auto !important;
+  } 
+
+  .container {
+    position: relative;
+  
+    &__total {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 4;
+      text-align: center;
+
+      .text{
+        color: #9B9B9B;
+        font-family: Lato-Heavy;
+        font-size: 20px;
+        letter-spacing: 0;
+        line-height: 15px;
+      }
+
+      .sub-text{
+        color: #000000;
+        // font-family: "Helvetica Neue";
+        font-size: 36px;
+        font-weight: 300;
+        letter-spacing: -0.65px;
+        line-height: 44px;
+        margin: 0;
+      }
+    }
+  }
+
+::ng-deep .highcharts-container {
+    position: inherit !important;
+}
+
+::ng-deep .highcharts-tooltip span {
+    background-color: transparent;
+    border: none;
+    z-index: 9999 !important;
+    top:100px !important;
+    left:100px !important;
+}
+
+::ng-deep .tooltip {
+    padding: 5px !important;
+}

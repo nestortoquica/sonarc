@@ -1,0 +1,144 @@
+table{
+  width: 100%;
+  color: black;
+  font-family: "Noto-Ikea-Regular";
+}
+
+#lock{
+  color: #0051BA;
+  text-decoration: underline;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.mat-card-content{
+  overflow: auto;
+}
+
+.mat-header-cell{
+  font-family: "Noto-Ikea-Bold";
+  margin: auto;
+  width: 120px;
+  text-align: center;
+  word-wrap: break-word;
+  font-size: 14px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.mat-cell{
+  text-align: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+.mat-card-header-text{
+  width: 25%;
+  text-transform: none;
+}
+.title-card{
+  text-transform: none !important;
+}
+
+#search{
+  margin-right: 5px;
+  margin-left: 10px;
+  font-size: 18px;
+  color: #858585;
+}
+
+.search-box{
+  background-color: #ffffff;
+    border: 1px solid #858585;
+    border-radius: 25px;
+    height: 45px;
+    width: 30%;
+    @media (max-width: 1100px){
+      width: 90%;
+      padding-left: 13px;
+      padding-bottom: 10px;
+    }
+    @media (max-width: 360px){
+      width: 105%;
+    }
+}
+.mat-card-header:last-child{
+  @media (max-width: 360px) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.text-center{
+  text-align: center;
+}
+
+th{
+  padding-right: 0px;
+}
+
+td{
+  span{
+    font-size: 15px;
+    font-family: "Noto-Ikea-Regular";
+  }
+  span.link{
+    color: #0051BA;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+td:first-child{
+  color: #0067B3;
+  text-decoration: underline;
+  span{
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 700px) {
+  .far{
+    margin-bottom: 10px;
+  }
+  td{
+    span{
+      font-size: 10px;
+    }
+  }
+  .mat-header-cell{
+    font-size: 12px;
+  }
+  th, td {
+    padding-right: 10px !important;
+  }
+}
+
+.far{
+  margin-right: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  color: #a3b5cb;
+}
+.fa-edit:hover{
+  color: green;
+}
+.fa-trash-alt:hover{
+  color: red
+}
+
+  #create{
+    background-color: #0058A3;
+    color: white;
+    font-family: "Noto-Ikea-Bold";
+    border-radius: 25px;
+    text-align: center;
+    line-height: 16px;
+    padding: 10px 16px;
+    width: 120px;
+  }
+
+  #create-fab{
+    background-color: #0065e7;
+  }
+
+.mat-paginator{
+  font-family: "Noto-Ikea-Regular";
+}

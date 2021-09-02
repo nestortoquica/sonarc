@@ -1,0 +1,98 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="36px">
+        <div *ngIf="msgAddress" fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="{'msg-success':typeMsg == 'success', 'msg-err':typeMsg == 'error'}" class="msg">
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+                <i *ngIf="typeMsg == 'success'" class="fas fa-check icon"></i>
+                <i *ngIf="typeMsg == 'error'" class="fas fa-times"></i>
+                <p style="font-size: 15px;">{{msgDir}}</p>
+            </div>
+            <button [ngClass]="{'msg-success':typeMsg == 'success', 'msg-err':typeMsg == 'error'}" class="btn-close"><mat-icon aria-hidden="false" (click)="closeMsg()">clear</mat-icon></button>
+        </div>
+        <div fxLayout="row" fxLayoutGap = "2.6%" fxLayoutGap.md = "4%" fxLayoutGap.lt-md="36px" fxLayout.lt-md="column">
+            <mat-card fxFlex="31.6%" fxFlex.md="48%">
+                <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'dashboard.cards.deliveries_month' | translate }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <app-chart-paquetes  axisX="{{responseQuantityMonthAxisX}}" axisY="{{responseQuantityMonthAxisY}}" seriesName="{{nameY}}"></app-chart-paquetes>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="31.6%" fxFlex.md="48%">
+                <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'dashboard.cards.deliveries_carrier' | translate }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <app-chart-entregas arrayName="{{responseQuantityCarrierName}}" arrayY="{{responseQuantityCarrierY}}"></app-chart-entregas>
+                </mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="31.6%" fxShow.md="false">
+                <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'dashboard.cards.deliveries_location' | translate }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <app-chart-entregas arrayName="{{responseQuantityLockerName}}" arrayY="{{responseQuantityLockerY}}"></app-chart-entregas>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    
+        <div fxLayout="row" fxLayoutGap ="2.6%" fxLayout.lt-lg="column" fxLayoutGap.lt-lg="36px">
+            <mat-card fxFlex fxFlex.md="100%">
+                <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'dashboard.my_address' | translate }}</mat-card-title>
+                </mat-card-header>
+                <mat-card-content fxLayout="column" fxLayoutAlign=" start" fxLayoutGap ="24px">
+                    <div class="box-address"
+                    fxLayout="row" fxLayoutAlign="start stretch"
+                    fxLayoutGap = "24px"
+                    fxLayout.xs="column"
+                    fxLayout.sm="column"
+                    fxLayoutGap.xs = "0px" 
+                    fxLayoutGap.sm = "0px">
+                        <div class="add-module" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px" (click)="openDialog()">
+                            <i class="fas fa-plus"></i>
+                            <p translate>dashboard.add <br> dashboard.address</p>
+                        </div>
+                        <div *ngFor="let address of arrayAddress" class="body-address"
+                        fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="18px">
+                        <p class="text-grey">{{address.userAddress}}</p>
+                        <div>
+                            <p><b>{{address.userName}}</b></p>
+                            <p>{{address.lockerAddress}}</p>                       
+                        </div>
+                        <p>ID Locker: <b>{{address.lockerName}}</b></p>
+                        <div fxLayout="row" class="links">
+                            <a class="text-edit" style="margin-right: 6px;">Ver precios</a> |
+                            <a class="text-edit" style="margin: 0 6px;" (click)="openDialog(address)">{{ 'dashboard.edit' | translate }}</a> |
+                            <a class="text-edit" style="margin-left: 6px;" (click)="onDeleteLockerUser(address.id_user_locker)">Eliminar</a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    <mat-card-title style="margin-bottom: 0px;">
+                        <mat-checkbox 
+                        #checkBoxPack
+                        type="checkbox"
+                        [checked]="checkedPack" 
+                        (change)="onCheckedPackChanged(checkBoxPack.checked)"> <span class="title-check"> {{ 'dashboard.recive_my_package' | translate }} </span></mat-checkbox>
+                    </mat-card-title>
+                </mat-card-content>
+            </mat-card>
+            <div fxFlex.gt-md="31.6%"
+            fxLayout="column" 
+            fxLayout.md="row"
+            fxLayoutGap ="36px"
+            fxLayoutGap.md ="4%">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title class="title-card">vivi-ID del Usuario primario <i class="fas fa-question-circle"></i></mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content fxLayoutGap="12px">
+                        <mat-card-subtitle style="padding: 0;">{{ 'dashboard.vivi_id' | translate }}</mat-card-subtitle>
+                        <div class="vivi-id">{{consumer_code}}</div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

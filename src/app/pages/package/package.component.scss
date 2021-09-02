@@ -1,0 +1,27 @@
+
+
+mat-card-content{
+    text-align: left;
+    margin: 0px;
+    .img-default{
+        text-align: center;
+        margin: 45px 0;
+        height: 119px;	
+        width: 292px;	
+        border-radius: 8px;	
+        background-color: #FFFFFF;
+    } 
+}
+.mat-card{  
+    padding: 24px !important;
+    .mat-card-title{
+        margin-bottom: 14px !important;
+    }
+}   
+
+app-menu{
+    position: sticky;
+    z-index: 5;
+    font-family: Noto-Sans !important;
+    box-shadow: 0px 5px 15px #f7f7f7;
+  }

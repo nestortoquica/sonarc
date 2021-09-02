@@ -1,0 +1,48 @@
+<div class="content-body" fxLayout="column" fxLayoutGap="36px">
+    <app-msg  *ngIf="msg" type_msg='{{type_msg}}' text_msg='{{text_msg}}'></app-msg>
+    <div *ngIf="step1" fxFlex fxLayout="column" fxLayoutGap="18px">
+        <mat-card>
+            <mat-card-header>
+            <mat-card-title class="title-card">{{ 'payments.balance' | translate }} Vivipost</mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayout="column" fxLayoutAlign="start start" style="padding: 24px;">
+                <p class="text-balance" translate>payments.current_balance</p>
+                <p class="text-amount" >$ {{credit}} MXN</p>                
+            </mat-card-content>
+            <mat-card-footer class="card-footer">
+                <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="24px">
+                    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="18px">
+                        <mat-label class="footer-title" translate>payments.pay_balance</mat-label>
+                        <mat-radio-group [(ngModel)]="payment" (change)="onSelectedQuantity()" fxLayoutGap="24px">
+                            <mat-radio-button value="{{amount}}">
+                                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                                    <input (keyup)="onSelectedPay($event)" class="input-amount" placeholder="0" type="number" [(ngModel)]="amount">
+                                    <mat-label class="radio-text">MXN</mat-label>
+                                </div>
+                            </mat-radio-button>
+                            <mat-radio-button class="radio-text mat-accent mat-radio-checked" value="100.00">100.00MXN</mat-radio-button>
+                            <mat-radio-button class="radio-text" value="200.00">200.00MXN</mat-radio-button>
+                            <mat-radio-button class="radio-text" value="500.00">500.00MXN</mat-radio-button>
+                        </mat-radio-group>
+                    </div>
+                    <p><span class="symbol">$</span>{{payment}} MXN</p>
+                </div>
+                <p *ngIf="err" class="msg-error">*{{ 'message.amount' | translate }}</p>
+            </mat-card-footer>
+        </mat-card>
+        <mat-card fxFlex>
+            <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" style="padding: 24px; line-height: 24px;" class="list-footer">
+                <p translate>payments.total_pay</p>
+                <p><b>{{payment}} MXN</b></p>
+            </mat-card-content>
+        </mat-card>
+        <div fxLayout="row" fxLayoutAlign="end center" fxFlex fxLayoutGap="8px">
+            <button routerLink="/dashboard" class="btn btn-white">{{ 'general.cancel' | translate }}</button>
+            <button class="btn button-red" (click)="onNextStepPay()" [disabled]='disableBtn' [ngClass]="{'button-grey':disableBtn, 'button-red':!disableBtn}" translate>general.next</button> 
+        </div>
+    </div>
+
+    <div *ngIf="step2" style="width: 100%;">
+        <app-payment-cards fxLayout="column" fxLayoutGap="18px" data="{{pay_data}}" type="pay"></app-payment-cards>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+<div *ngIf="remove" class='{{classNofitication}}' >
+
+    <div *ngIf=" type == 'info'">
+		<img width="24px"src="\assets\images\info.png" alt="logo">
+	</div>
+
+	<div *ngIf=" type == 'success'">		
+		<img width="24px"src="\assets\images\done.png" alt="logo">
+	</div>
+
+	<div *ngIf=" type == 'error'">
+		<img width="24px"src="\assets\images\error.png" alt="logo">
+    </div>
+    
+    <div *ngIf=" type == 'warning'">
+		<img width="24px"src="\assets\images\warning.png" alt="logo">
+	</div>
+
+	<p>{{ message | translate }}</p>
+</div>

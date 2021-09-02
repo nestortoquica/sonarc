@@ -1,0 +1,60 @@
+
+main{
+    width: 90%;
+    margin: 48px auto 10px;
+}
+mat-card{
+    padding: 10px !important;
+    margin: 0px auto;
+    mat-form-field{
+        font-family: "Noto-Ikea-Regular";
+    }
+}
+mat-card-content{
+    padding: 10px;
+}
+
+
+
+input{
+    padding-left: 6px;
+}
+#address{
+    width: 90%;
+}
+mat-form-field{
+    width: 42%;
+    margin: 0px 2vw;
+    @media (max-width: 1000px) {
+        width: 90%;
+    }
+}
+
+mat-card-footer{
+    text-align: center;
+}
+
+button{
+    width: 30%;
+    background-color: #0067B3 !important;
+    font-family: "Noto-Ikea-Regular";
+    margin-bottom: 20px;
+    height: 50px;
+    border-radius: 30px;
+}
+button:hover{
+    background-color: #043779 !important;
+}
+
+.eye{
+    cursor: pointer;
+}
+
+mat-card-title{
+    font-size: 18px !important;
+}
+
+::ng-deep p:nth-child(4) mat-form-field.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: #00000026;
+    border:0
+}

@@ -1,0 +1,30 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+
+  <div fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="5px">
+    <div class="grid_lockers" *ngFor="let lockers_array of arrayNodeLocker">
+      <div  fxFlex="3vw" fxFlex.sm="6vw" fxFlex.xs="7vw" *ngFor="let locker_module of lockers_array">
+        <mat-grid-list cols="1" rowHeight="15px" gutterSize="5px">
+          <mat-grid-tile
+          *ngFor="let locker of locker_module"
+          [colspan]="locker.cols"
+          [rowspan]="locker.rows"
+          [ngClass]="locker.class"
+          >
+            <div *ngIf="locker.rows == 5 && locker.class == 'SCREEN'">
+              <div style="border: 0.5px solid #CDCDCD; width: 35px; height: 85px; padding-top: 4px;" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+                <div style="height: 48px; width: 81%; border: 0.5px solid #CDCDCD;"></div>
+                <div style="height: 8px; width: 11px; border: 0.5px solid #CDCDCD;"></div>
+              </div>
+            </div>
+          </mat-grid-tile>
+        </mat-grid-list>
+      </div>
+    </div>
+  </div>
+  <div fxFlex class="legende" fxLayout="row wrap" fxLayoutAlign="center" fxLayoutGap="10px">
+    <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #FFFFFF; box-sizing: border-box; border: 1px solid #727171;"> </div><p>{{ 'lockers.available_door' | translate }} ({{tt_available}})</p></div>
+    <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #9EC57C;"> </div><p>{{ 'lockers.busy_door' | translate }} ({{tt_occupied}})</p></div>
+    <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #F50000;"> </div><p>{{ 'lockers.fail_door' | translate }} ({{tt_damaged}})</p></div>
+    <div fxLayoutAlign="space-evenly center"><div class="circle" style="background-color: #425165;"> </div><p>{{ 'lockers.door_open' | translate }} ({{tt_open}})</p></div>
+  </div>
+</div>

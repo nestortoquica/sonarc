@@ -1,0 +1,29 @@
+<div class="content-body" fxFlex fxLayout="column" fxLayoutGap="18px">
+    <mat-card *ngIf="step1">              
+        <table fxFlex id="package_table">
+            <tr *ngFor="let item of pendingPackages" class="item-list">
+                <td style="width: 5%; padding-left: 24px;"><mat-checkbox id="{{item.id_package}}" checked=true type="checkbox" (change)="onCheckedAmount($event, item.amount, false)"></mat-checkbox></td>
+                <td style="width: 75%;">{{ 'general.Paquete' | translate }} {{item.package_code}} </td>
+                <td style="text-align: right; padding-right: 24px;"> ${{item.amount}} MXN </td>
+            </tr>
+            <tr class="item-list">
+                <td style="width: 5%; padding-left: 24px;"><mat-checkbox id="checkCredit" checked=true type="checkbox" (change)="onCheckedAmount($event, credit, true)"></mat-checkbox></td>
+                <td style="width: 75%; color: #FF4848;">{{ 'payments.my_credit' | translate }} Vivipost </td>
+                <td style="text-align: right; padding-right: 24px; color: #FF4848;"> -${{credit}} MXN</td>
+            </tr>
+            <tr class="list-footer">
+                <td colspan="2" style="padding-left: 24px;" translate> payments.total_pay</td>
+                <td style="text-align: right; padding-right: 24px;"><b>${{totalPay}} MXN</b></td>
+            </tr>
+        </table>
+    </mat-card>
+
+    <div *ngIf="step2">
+        <app-payment-cards fxLayout="column" fxLayoutGap="18px" data="{{packet_data}}" type="packages"></app-payment-cards>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center" fxFlex fxLayoutGap="8px">
+        <button routerLink="/dashboard/deliveries" class="btn btn-white">{{ 'general.cancel' | translate }}</button>
+        <button *ngIf="step1" class="btn button-red" (click)="onNextStepPay()" translate>general.next</button> 
+    </div>
+</div>

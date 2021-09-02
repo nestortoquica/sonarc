@@ -1,0 +1,18 @@
+.mat-card{  
+    padding: 24px !important;
+    text-transform: uppercase;
+    .mat-card-title{
+        margin-bottom: 14px !important;
+    }
+}
+
+.card-right{
+    text-align: right;
+}
+
+app-menu{
+    position: sticky;
+    z-index: 5;
+    font-family: Noto-Sans !important;
+    box-shadow: 0px 5px 15px #f7f7f7;
+  }

@@ -1,0 +1,186 @@
+<app-menu-client></app-menu-client>
+<div class="content-body" fxLayout="column" fxLayoutGap="36px">
+<mat-tab-group class="tabs tabs-client">
+    <mat-tab label="{{ 'general.completed' | translate }}">
+      <div class="btn-group" id="date-metrics" fxLayoutGap="10px">
+        <mat-form-field class="dates" (click)="startm.open()">
+          <input name="sdate" (dateChange)="getData()" [(ngModel)]="sdate" matInput [matDatepicker]="startm" placeholder="{{'general.start_date' | translate}}" [max]="maxDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="startm"></mat-datepicker-toggle>
+          <mat-datepicker #startm></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="dates" (click)="endm.open()">
+          <input name="fdate" (dateChange)="getData()" [(ngModel)]="fdate" matInput [matDatepicker]="endm" placeholder="{{'general.end_date' | translate}}" [max]="maxDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="endm"></mat-datepicker-toggle>
+          <mat-datepicker #endm></mat-datepicker>
+        </mat-form-field>
+        <!-- <mat-form-field id="download" > -->
+          <!-- <mat-label>{{'general.download' | translate}}</mat-label>
+          <mat-select>
+            <mat-option (click)="downloadPDF()" id="pdf" value="PDF"><i class="far fa-file-pdf"></i> PDF</mat-option>
+            <mat-option (click)="downloadExcel()" id="excel" value="Excel"><i class="far fa-file-excel"></i> Excel</mat-option>
+          </mat-select> -->
+          <button class="download-button" (click)="downloadPDF()">{{'general.download' | translate}} PDF</button>
+        <!-- </mat-form-field> -->
+    </div>
+    <div class="tab-body" fxFlex="100%" fxLayout="row" fxLayoutGap="20px">
+      <mat-tab-group class="tabs tabs-client">
+         
+         <mat-tab>
+            <ng-template mat-tab-label>
+              <span class="bg-badge">{{ 'general.completed' | translate }}</span>              
+            </ng-template>
+            <div style="margin-top: 85px;"></div>
+            <mat-card fxFlex="100%" fxLayout="column">
+              <app-orders-table data="{{data}}" columns="{{columns}}"></app-orders-table>
+            </mat-card>
+         </mat-tab>
+
+         <mat-tab >
+          <ng-template mat-tab-label>
+              <span (click)="generalChart()" class="bg-badge">{{ 'general.sumary' | translate }}</span>
+            </ng-template>
+             <div class="tab-body" fxFlex="95%" fxLayout="row" fxLayoutGap="20px">
+                <mat-card fxFlex="100%">
+                  <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'deliveries.summary' | translate }}</mat-card-title>
+                    <i class="fas fa-info-circle" matTooltip="{{ 'info.orders.completed.summary.order_summary' | translate }}" matTooltipPosition="above"></i>
+                  </mat-card-header>
+                  <mat-card-content id="general-chart">
+                    <!-- <app-chart-bar type="orders" [arrayName]="mostActiveLockers"></app-chart-bar> -->
+                    <div id="chartdiv"></div>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div fxFlex="95%" fxLayout="row" fxLayoutGap="20px" fxLayout.sm="column" fxLayout.xs="column">
+                <mat-card fxFlex="50%">
+                  <mat-card-header>
+                    <mat-card-title class="title-card" >{{ 'deliveries.total_deliveries' | translate }} {{'deliveries.byMonth' | translate}}</mat-card-title>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <app-chart-client *ngIf="chart" data="{{chart}}" months="{{months}}" type="orders"></app-chart-client>
+                  </mat-card-content>
+                </mat-card>
+                <mat-card fxFlex="50%">
+                  <mat-card-header>
+                    <mat-card-title class="title-card">{{ 'deliveries.deliver_size' | translate }}</mat-card-title>
+                    <i class="fas fa-info-circle" matTooltip="{{ 'info.orders.completed.summary.orders_delivered_size' | translate }}" matTooltipPosition="above"></i>
+                  </mat-card-header>
+                  <mat-card-content>
+                    <app-pie-chart [sizes]="sizes"></app-pie-chart>
+                  </mat-card-content>
+                </mat-card>
+              </div>
+              <div class="content-cards">
+                <div fxFlex="95%" fxLayout="column" fxLayoutGap="20px">
+                  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                    <mat-card fxFlex="33%" class="small-card">
+                      <mat-card-header>
+                        <mat-card-title class="title-card">{{ 'general.totalCustomers' | translate }}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content class="small-content">
+                        <p><span class="big">{{consumerCount}} </span>{{'general.customers' | translate}}</p>
+                      </mat-card-content>
+                    </mat-card>
+                    <mat-card fxFlex="33%" class="small-card">
+                      <mat-card-header>
+                        <mat-card-title class="title-card">{{ 'deliveries.total_deliveries' | translate }}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content class="small-content">
+                        <p><span class="big">{{total}} </span>{{'general.Orders' | translate}}</p>
+                      </mat-card-content>
+                    </mat-card>
+                    <mat-card fxFlex="33%" class="small-card">
+                      <mat-card-header>
+                        <mat-card-title class="title-card">{{ 'deliveries.deliver_today' | translate }}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content class="small-content">
+                        <p><span class="big">{{today}} </span>{{rate}}% {{'deliveries.compared' | translate}}</p>
+                      </mat-card-content>
+                    </mat-card>
+                  </div>
+                  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="20px">
+                    <mat-card fxFlex="33%" class="small-card">
+                      <mat-card-header>
+                        <mat-card-title class="title-card">{{ 'deliveries.expired' | translate }}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content class="small-content">
+                        <p><span class="big">{{exp}} </span>{{'general.Orders' | translate}}</p>
+                      </mat-card-content>
+                    </mat-card>
+                    <mat-card fxFlex="33%" class="small-card">
+                      <mat-card-header>
+                        <mat-card-title class="title-card">{{ 'deliveries.most_used_compartment' | translate }}</mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content class="small-content">
+                        <p><span  *ngIf="mostUsed[0]"  class="big">{{mostUsed[0].size}}</span></p>
+                      </mat-card-content>
+                    </mat-card>
+                    <mat-card fxFlex="33%" class="small-card">
+                        <mat-card-header>
+                          <mat-card-title class="title-card">{{'deliveries.mostActiveLocation'|translate}}</mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content *ngIf="mostActiveLockers" class="small-content">
+                          <p><span *ngIf="mostActiveLockers[0]" class="big big-list">{{mostActiveLockers[0].locker_name}}</span></p>
+                        </mat-card-content>
+                      </mat-card>
+                    </div>
+                  </div>
+              </div>
+
+
+
+
+            
+         </mat-tab>
+        </mat-tab-group>
+      </div>
+    </mat-tab>
+
+
+
+
+
+
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="bg-badge" *ngIf="all>0" matBadge="{{all}}" matBadgeOverlap="false">{{ 'general.general' | translate }}</span>
+        <span class="bg-badge" *ngIf="all<=0">{{ 'general.general' | translate }}</span>
+      </ng-template>
+      <div style="margin-top: 85px;"></div>
+      <mat-card fxFlex="100%" fxLayout="column">
+        <app-orders-table data="{{generalData}}" columns="{{columns}}"></app-orders-table>
+      </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="bg-badge" *ngIf="pend>0" matBadge="{{pend}}" matBadgeOverlap="false">{{ 'general.pending' | translate }}</span>
+        <span class="bg-badge" *ngIf="pend<=0">{{ 'general.pending' | translate }}</span>
+      </ng-template>
+      <div style="margin-top: 85px;"></div>
+      <mat-card fxFlex="100%" fxLayout="column">
+        <app-orders-table data="{{pendingData}}" columns="{{columns1}}"></app-orders-table>
+      </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="bg-badge" *ngIf="exp>0" matBadge="{{exp}}" matBadgeOverlap="false">{{ 'general.expired' | translate }}</span>
+        <span class="bg-badge" *ngIf="exp<=0">{{ 'general.expired' | translate }}</span>
+      </ng-template>
+      <div style="margin-top: 85px;"></div>
+      <mat-card fxFlex="100%" fxLayout="column">
+        <app-orders-table data="{{expiredData}}" columns="{{columns2}}"></app-orders-table>
+      </mat-card>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <span class="bg-badge" *ngIf="refund>0" matBadge="{{refund}}" matBadgeOverlap="false">{{ 'general.refund' | translate }}</span>
+        <span class="bg-badge" *ngIf="refund<=0">{{ 'general.refund' | translate }}</span>
+      </ng-template>
+      <div style="margin-top: 85px;"></div>
+      <mat-card fxFlex="100%" fxLayout="column">
+        <app-orders-table data="{{refundData}}" columns="{{columns2}}"></app-orders-table>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+</div>
+  <app-client-footer></app-client-footer>

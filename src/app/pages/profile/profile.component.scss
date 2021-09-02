@@ -1,0 +1,27 @@
+.label{
+    color: #3D3D3D;
+    font-family: Gilroy-Bold;
+    font-size: 13px;
+    letter-spacing: 0.23px;
+    line-height: 13px;
+    text-transform: uppercase;
+}
+
+input, select, option{
+    box-sizing: border-box;
+    height: 36px;
+    border: 1px solid #E4E4E4;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    outline:none;
+    color: #767676;
+    padding: 0 12px;
+}
+.input-w, select{
+    width: 380px;
+}
+
+
+.mat-form-field-appearance-fill .mat-form-field-flex{
+    background: #fff !important; 
+}

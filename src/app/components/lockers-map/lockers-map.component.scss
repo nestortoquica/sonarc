@@ -1,0 +1,41 @@
+
+.content-search{
+    color: #9E9E9E;
+    font-family: Lato-Regular;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 16px;
+    padding: 12px 24px;
+    border-bottom: 1px solid #EEEEEE;
+    input{
+    border: none;
+    font-style: italic;
+    width: 100%;
+    }
+}
+.mat-list-base{
+    padding: 0 24px;
+    overflow-y: auto;
+    height: 100%;
+    .mat-list-item{
+    height: auto;
+    padding: 12px 0;
+    color: #434343;
+    font-family: Lato-Regular !important;
+    font-size: 14px;
+    letter-spacing: 0;
+    line-height: 21px;
+    text-decoration: underline;
+    ::ng-deep .mat-list-item-content {
+        padding: 0 !important;
+        cursor: pointer;
+    }
+    }
+}
+
+#map-card{
+    height: 389px;
+    @media (max-width: 1000px) {
+        height: 75%;
+    }
+}

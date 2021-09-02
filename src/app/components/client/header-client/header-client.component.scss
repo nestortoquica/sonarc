@@ -1,0 +1,283 @@
+
+.content-menu{
+    width: 100%;
+    padding: 14px 36px;
+    background: white;
+    color: black;
+    position: fixed;
+    z-index: 11;
+    box-shadow: 0px 1px 10px #00000046;
+    .logo-menu{
+        font-family: "Noto-Ikea-Bold";
+        height: 24px;
+        margin-right: 1vw;
+        h1{
+            color: #FFDA1A;
+            margin: 0px;
+            font-weight: 900;
+        }
+    }
+    sup{
+        font-size: small;
+    }
+    #ikea-logo{
+        width: 80px;
+        margin: 0px;
+        cursor: pointer;
+    }
+    .header-container{
+        width: 100%;
+    }
+    
+}
+.box-menu{
+    .items{
+        a{
+            color: black !important;
+        }
+    }
+}
+
+#bell{
+    font-size: 24px;
+    vertical-align: middle;
+    cursor: pointer;
+    ::ng-deep .mat-badge-content{
+        background-color: #0067B3 !important;
+        right: -15px;
+    }
+    @media (max-width: 1000px) {
+        margin-left: 10px;
+    }
+}
+
+.notification{
+    padding: 23px 12px;
+    border-bottom: 1px solid #ffffff;
+    p, a{
+        font-family: "Noto-Ikea-Bold";
+        font-size: 14px;
+        letter-spacing: -0.07px;
+    }
+}
+
+.red-notification{
+    border-left: 4px solid #0058A3;
+    p, a{
+        color: #0B3231;
+    }
+    a{ border-bottom: 1px solid #0b323196;}
+}
+
+.grey-notification{
+    p, a{
+        color: #BCBCBC;
+    }
+    a{ border-bottom: 1px solid #BCBCBC; }
+}
+
+.footer-notifications{
+    color: #000000;
+    font-family: "Noto-Ikea-Bold";
+    font-size: 14px;
+    letter-spacing: -0.07px;
+    line-height: 22px;
+    margin:auto;
+    text-decoration: underline;
+}
+
+
+button.hidden-element-movil, button.mat-menu-item, button.ng-star-inserted{
+    font-family: "Noto-Ikea-Regular";
+}
+
+::ng-deep .mat-menu-content{
+    min-width: 230px;
+}
+::ng-deep .mat-menu-panel {
+    max-width: 350px !important;
+}
+::ng-deep .mat-menu-item{
+    line-height: 14px !important;
+    min-height: 60px !important;
+}
+
+::ng-deep div.cdk-overlay-connected-position-bounding-box{
+    top: 63px;
+    left: 1284px;
+}
+
+.mat-icon{
+    width: 15px !important;
+    height: 21px !important;
+}
+
+.titulo-menu-client{
+    font-family: "Noto-Ikea-Regular"; //Noto-Sans
+    color: white;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 20px 35px;
+    background: #0067B3;
+    // margin-top: 64px;
+    padding-top: 85px;
+    box-shadow: 0px 0px 10px #ccc;
+    .border{
+        border-bottom: 2px solid #0058A3; 
+        cursor: pointer;
+        color: #0058A3;
+    }
+}
+.tab{
+    color: #CCD2DB;
+}
+.tab-bread{
+    color: white;
+    text-transform: capitalize;
+    font-family: "Noto-Ikea-Regular";
+    cursor: pointer;
+}
+
+.fa-home{
+    color: white;
+}
+
+.div-wallet{
+    border: 1px solid #FF4848;
+    border-radius: 4px;
+    background-color: #FFFFFF;
+    padding: 10px 12px;
+    text-decoration: none;
+    p{
+        color: #FF4848;
+        font-family: Noto-Sans;
+        font-size: 13px;
+        letter-spacing: 0;
+        margin: 0;
+    }
+}
+
+::ng-deep .bg-badge .mat-badge-content  {
+    background: #0058A3;
+    color: #fff;
+    font-size: 9px;
+  }
+
+::ng-deep app-menu{
+    box-shadow: 2px 2px 12px 0 rgba(0,0,0,0.12);
+}
+
+.hidden-element-web{
+    display: none!important;
+    color: #0067B3;
+    cursor: pointer;
+    margin-left: 15px;
+}
+
+.space{
+    height: 0px!important;
+    background-color: white;
+}
+
+::ng-deep .mat-menu-content:not(:empty) {
+    padding: 0 !important;
+}
+
+@media (max-width: 901px){
+    .space{
+        height: 50px!important;
+    }
+    .content-menu{
+        width: 100%;
+        padding: 10px 15px;
+    }
+
+    .logo-menu{
+        margin: 0px!important;
+        margin-left: 5px!important;
+    }
+    .imagenLogo{
+        content: url(../../../../assets/images/logo-movil.PNG);
+        height: 30px!important;
+        width: 25.81px!important;
+    }  
+
+    .hidden-element-movil{
+        display: none!important;
+    }
+
+    .hidden-element-web{
+        display: inline!important;
+    }  
+
+    .notification-icon{
+        border-right: none!important;
+        padding-right: 0px!important;
+    }
+    
+    .icon-menu-movil{
+        // height: 38px!important;
+        width: 90%!important;
+    }
+    .expand-icon{
+        font-size: larger;
+        vertical-align: super!important;
+    }
+    .icon-bell{
+        vertical-align: super!important;
+        padding-right: 10px!important;
+        font-size: 23px!important;
+    }
+
+    .items-menu{
+        display: grid;
+        background: #0067b3;
+        // padding: 5px 0px;
+        button{
+            text-align: right;
+            padding-right: 44px;
+            color: #fff;
+            font-size: 14px!important;
+            height: 45px!important;
+            line-height: normal;        
+        } 
+        .mat-menu-item:hover:not([disabled]) {
+            background: #0058A3 !important;
+            color: #fff;
+        }    
+    }
+    .menu-sticky{
+        width: 100%;
+        position: fixed;
+        z-index: 1000;
+    }
+    
+    .show-menu{
+        display: block!important;
+    }
+
+    .hide-menu{
+        display: none!important;
+    }
+
+    .content-menu-movil{
+        top:33px;
+    }
+    .breadcrumbs-menu{
+        top: 50px;
+        z-index: 500;
+    }    
+}
+
+#breadcrumb-anchor{
+    font-family: "Noto-Ikea-Regular";
+    text-decoration: none;
+    cursor: pointer; 
+    text-transform: capitalize;
+    color:#0051BA;
+}
+
+#last-breadcrumb{
+    font-family: "Noto-Ikea-Regular";
+    text-transform: capitalize;
+}

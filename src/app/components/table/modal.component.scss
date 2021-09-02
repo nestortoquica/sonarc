@@ -1,0 +1,167 @@
+
+.header-box{
+    border-bottom: 1px solid #dcdcdc;
+    padding: 18px 25px;
+    p{
+        margin: 0;
+        display: inline-block;
+        text-transform: uppercase;
+        color: #666666;	
+        font-family: Lato-Heavy;	
+        font-size: 16px;
+        line-height: 18px;
+    }
+    button{
+        background: transparent;
+        border: none;
+        vertical-align: middle;
+        float: right;
+        outline: none;
+        cursor: pointer;
+        color: #c5c5c5;	
+        .mat-icon{
+            font-size: 16px;
+        }
+    }
+}
+.body{
+    display: flex;
+    p{
+        color: #767676;
+        font-family: Lato-Regular;
+        font-size: 14px;
+        letter-spacing: 0.25px;
+        line-height: 22px;
+        margin: 24px;
+    }
+    .label{
+        color: #3D3D3D;
+        font-family: Lato-Regular;
+        font-size: 13px;
+        letter-spacing: 0.23px;
+        line-height: 13px;
+    }
+    input, select{
+        height: 36px;
+        width: 320px;
+        margin-top: 8px;
+    }
+}
+::ng-deep .mat-dialog-container{
+    padding: 0;
+    overflow: hidden;
+}
+
+.mat-dialog-content{
+    margin: 0px !important;
+    padding: 24px !important;
+
+    .infoRow{
+        margin: 0;
+        color: #666666;
+        font-family: Lato-Regular;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 18px;
+    }
+
+    .table-logs{
+        border: 1px solid #DEDEDE;
+        border-radius: 8px;
+        background-color: #FFFFFF;
+        width: 100%;
+        th{
+            color: #717171;
+            font-family: Lato-Heavy;
+            font-size: 16px;
+            letter-spacing: 0;
+            line-height: 18px;
+            text-transform: uppercase;
+            padding: 12px 24px;
+            text-align: left;
+            border-bottom: 1px solid #EEE;
+            
+        }
+        td{
+            color: #898989;
+            font-family: Lato-Regular;
+            font-size: 13px;
+            letter-spacing: 0;
+            line-height: 59px;
+            padding: 12px 24px;
+        }
+
+        
+    }
+}
+
+.body-box{
+    margin: 40px;
+    display: flex;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    padding: 0px;
+    mat-label{
+        color: #666666;	
+        font-family: Lato-Heavy;	
+        font-size: 16px;	
+        letter-spacing: -0.08px;	
+        line-height: 18px;
+        margin-bottom: 12px;
+    }
+    .addres-input{
+        margin-bottom: -1px !important;
+    }
+    input, select{
+        margin-bottom: 25px;
+        border-radius: 0px;
+    }
+    select{
+        padding: 11px 10px !important;
+    }
+    img{
+        width: 100%;
+        border-radius: 10px;
+        margin: 0 auto;
+    }
+
+}
+
+.footer-box{
+    border-top: 1px solid #dcdcdc;
+    padding: 18px 25px;
+    
+    .btn-close{
+        color: #666666;	
+        font-family: Lato-Regular;	
+        font-size: 16px;	
+        letter-spacing: -0.08px;	
+        line-height: 18px;
+        margin-right: 20px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        outline: none;
+    }
+}
+
+.title-code{
+    color: #000000;	font-family: Lato-Heavy;	font-size: 24px; letter-spacing: -0.2px;	line-height: 24px;
+    margin: 50px 0 0 50px;
+}
+.body-code{
+    color: #A2A2A2;	font-family: Lato-Regular;	font-size: 48px;	letter-spacing: 48px;	line-height: 65px;
+    text-align: center;
+    margin: 70px 0;
+}
+
+.footer-code{
+    text-align: center;
+    button{
+        padding: 15px 30px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: #FFFFFF;	font-family: Lato-Regular;	font-size: 14px; letter-spacing: 1.25px; line-height: 16px;	text-align: center;
+    }
+}

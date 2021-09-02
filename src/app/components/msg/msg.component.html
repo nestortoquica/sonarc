@@ -1,0 +1,8 @@
+<div *ngIf="msg" fxLayout="row" fxLayoutAlign="space-between center" [ngClass]="{'msg-success':type_msg == 'success', 'msg-err':type_msg == 'error'}" class="msg">
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+        <i *ngIf="type_msg == 'success'" class="fas fa-check icon"></i>
+        <i *ngIf="type_msg == 'error'" class="fas fa-times"></i>
+        <p style="font-size: 15px;">{{text_msg}}</p>
+    </div>
+    <button [ngClass]="{'msg-success':type_msg == 'success', 'msg-err':type_msg == 'error'}" class="btn-close"><mat-icon aria-hidden="false" (click)="closeMsg()">clear</mat-icon></button>
+</div>

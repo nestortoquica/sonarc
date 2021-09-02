@@ -1,0 +1,25 @@
+p{ margin: 0;}
+
+.grid_lockers{
+    border: 1px solid #E3E3E3;
+    padding: 8px;
+}
+
+.legende{
+    color: #000000;
+    font-family: Lato-Heavy;
+    font-size: 13px;
+    letter-spacing: 0;
+    margin-right: 20px;
+    padding-top: 14px;
+    .desc{
+      color: #9B9B9B;
+    }
+}
+
+.LOCKER_BLOCK{ margin: 0px 4px; box-sizing: border-box; border: 0.5px solid #CDCDCD; width: 14px !important } //disponible
+.LOCKER_CERRADO{ background: #FFF; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible
+.LOCKER_FALLO{ background: #FF534F; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //dañado
+.LOCKER_OCUPADO{ background: #EAEAEA; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //ocupado
+.LOCKER_ABIERTO { background: #0E68CE; box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible
+.SCREEN { box-sizing: border-box;  border: 0.5px solid #CDCDCD;} //disponible

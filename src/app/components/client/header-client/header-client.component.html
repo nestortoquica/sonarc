@@ -1,0 +1,99 @@
+<div class="content-menu menu-sticky" fxLayout="row" fxLayout="row"fxLayoutAlign="space-between stretch">
+    <!-- logo -->
+    <div class="logo-menu">
+        <!-- <h1>{{'general.title' | translate}}<sup>&reg;</sup></h1> -->
+        <img routerLink="/l-retail/locker" src="\assets\images\ikea.png" id="ikea-logo">
+    </div>
+    <!-- menu de usuario -->
+    <div class="header-container ">
+        <div class="box-menu" fxLayout="row" fxFill fxLayoutAlign="space-between center" fxLayoutAlign.sm="start center" fxLayoutAlign.xs="start center">
+            <div class="items hidden-element-movil" fxLayoutGap="24px">
+                <a routerLinkActive="selected{{lang}}"*ngFor="let menu of menu_user" id="{{menu[0]}}" [routerLink]="menu[1][0].route_sub_menu">{{ 'general.'+menu[1][0].menu_name | translate }}</a>
+            </div>
+            <div>
+                <button *ngIf="type_user==3" class="btn-notifications bg-badge" matBadgeSize="small" matBadgePosition="after" [matBadge]="numNoti" [matMenuTriggerFor]="menuNotifications"><i class="far fa-bell"></i></button>
+                <mat-menu #menuNotifications="matMenu">
+                    <div fxLayout="column" fxLayoutAlign="space-between stretch">
+                        <div ngxSplitArea *ngFor="let item of arrayNotiMenu; let i = index">
+                            <div class="notification {{i%2 ?'grey-notification':'red-notification'}}">
+                                <p style="margin:0">{{item.description}}</p>
+                                <!-- <a style="text-decoration: none;" href="/dashboard/deliveries">Ver información</a> -->
+                            </div>
+                        </div>
+                        <div fxLayout="row" ngxSplit="row" style="height: 58px;">
+                            <a href="/notifications" class="footer-notifications" translate>go_notification</a>
+                        </div>
+                    </div>
+                </mat-menu>
+                
+                <!-- iconos movil -->
+                <div fxLayout="row" fxLayoutAlign="end" class="hidden-element-web" >
+                    <!-- <img (click)="onShowMenuMovil();" src="\assets\images\menu-movil.PNG" alt="logo"> -->
+                    <i (click)="onShowMenuMovil()" class="fas fa-bars fa-2x"></i>
+                    <mat-icon (click)="onShowMenuMovil()" clase="expand-icon" style="vertical-align: super;" aria-hidden="false">{{expand}}</mat-icon>
+                </div>
+            </div>
+            <a *ngIf="type_user==3" class="div-wallet" href="/pay-balance">
+                <p><i class="fas fa-wallet" style="height: 14px; margin-right: 7px;"></i>${{balance}}</p>
+            </a>
+            <!-- segmento lateral derecho -->
+            <div >
+                <i *ngIf="log_package.length > 0" id="bell" mat-button [matMenuTriggerFor]="beforeMenu" [matBadgeHidden]="hidden" (click)="toggleBadgeVisibility()" matBadge="{{count_register_log}}" class="far fa-bell"></i>
+                <mat-menu class="notification" #beforeMenu="matMenu" >
+                    <button mat-menu-item [routerLink]="'/l-retail/order'" *ngFor="let log of log_package" title="{{ log.registration_date }}">
+                        <span>
+                            <i class="fas fa-box"></i> 
+                            {{'dashboard.nOrder'|translate}}
+                        </span>
+                        <b> {{ log.order_number }} </b> 
+                        <span translate>
+                            {{ (log.id_topic_audit == 8 ) ? 'dashboard.nPickup'  : '' }} 
+                            {{ (log.id_topic_audit == 9 ) ? 'dashboard.nDelivered'  : '' }} 
+                            {{ (log.id_topic_audit == 11 ) ? 'dashboard.nExpired' : '' }}
+                        </span>
+                    </button> 
+                    <!--
+                    <button mat-menu-item [routerLink]="'/l-retail/order'"><span><i class="fas fa-box"></i> {{'dashboard.nOrder'|translate}}</span> <b> 421039 </b> <span>{{'dashboard.nExpired'|translate}}</span></button>     
+                    -->               
+                </mat-menu>
+                <button class="hidden-element-movil btn-user-client" mat-button [matMenuTriggerFor]="aboveMenu">Hej! {{alias_username}}! <mat-icon class="expand-icon" aria-hidden="false">expand_more</mat-icon></button>
+                <mat-menu #aboveMenu="matMenu" yPosition="below" class="client-menu">
+                    <button class="hidden-element-movil" *ngFor="let profile of menu_profile" mat-menu-item [routerLink]="'/l-retail'+profile.route_sub_menu" >{{profile.submenu_name}}</button>
+                </mat-menu>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<!-- menu movil -->
+<div class="{{showMenuMovil}} menu-sticky content-menu-movil" >
+    <div class="hidden-element-web" >
+        <div (click)="menuItem()" class="items-menu">           
+            <button mat-menu-item *ngFor="let menu of menu_user" id="{{menu[0]}}" [routerLink]="menu[1][0].route_sub_menu" >{{menu[1][0].menu_name}}</button>
+        </div>
+        <div class="items-menu">
+            <button mat-menu-item *ngFor="let profile of menu_profile" [routerLink]="'/l-retail'+profile.route_sub_menu" >{{profile.submenu_name}}</button>
+        </div>
+    </div>
+</div>
+<!-- fin menu movil -->
+
+<!-- migas de pan -->
+<div class="titulo-menu-client menu-sticky breadcrumbs-menu hidden-element-movil" fxLayout="row" fxLayoutAlign="start center" >
+    <i routerLink="/l-retail/locker" style="font-size: 16px; cursor: pointer;" class="fas fa-home"></i>
+    <span *ngIf="!lockers_title" class="material-icons tab">chevron_right</span>
+    <div *ngIf="vecTemp=='locker' && lockerName;else v_tab">
+        <a class="tab-bread" *ngIf="breadUrl!='create' && breadUrl!='edit'" (click)="onBreadcrumbs('locker', false)">Lockers</a>
+        <i class="material-icons tab" style="vertical-align: middle;"> chevron_right </i>
+        <a class="tab-bread" *ngIf="lockerName" >{{lockerName}}</a>
+        
+    </div>
+    <ng-template #v_tab>
+        <span class="tab-bread">{{'general.'+breadUrl | translate}}</span>
+    </ng-template>
+   
+</div>
+<!-- space -->
+<div class="space" ></div>
+
+

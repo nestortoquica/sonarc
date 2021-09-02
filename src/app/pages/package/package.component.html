@@ -1,0 +1,34 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body">
+        <div fxLayoutGap="24px" fxLayout="row" 
+            fxLayout.sm="column" fxLayout.xs="column" 
+            fxLayoutAlign="space-around  center" 
+            fxLayoutAlign.xs="space-around stretch" 
+            fxLayoutAlign.sm="space-around stretch"
+            *ngFor="let element of valuesCards" >
+            <mat-card fxFlex="25%">
+                <mat-card-title class="title-card-md" style="text-align: left;">{{ 'deliveries.most_used_locker' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> {{ element.topName }}</mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="25%">
+                <mat-card-title class="title-card-md">{{ 'deliveries.packages_delivered' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{ element.pickup }}</mat-card-content>       
+            </mat-card>
+            <mat-card fxFlex="25%">
+                <mat-card-title class="title-card-md">{{ 'deliveries.packages_actives' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{ element.active }}</mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="25%">
+                <mat-card-title class="title-card-md">{{ 'package.i_total' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity"> $0 </mat-card-content>
+            </mat-card>
+        </div>
+        <div style="margin-top: 36px;">
+            <app-tableP dataForTable="{{dataTableAux}}" columns="{{dataColumn}}"></app-tableP>
+        </div> 
+    </div>
+    
+    
+    <app-footer></app-footer>
+</div>

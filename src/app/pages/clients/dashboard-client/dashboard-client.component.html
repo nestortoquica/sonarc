@@ -1,0 +1,31 @@
+<app-menu-client></app-menu-client>
+<div class="content-body" fxLayout="column" fxLayoutGap="36px">
+  <div class="content-cards">
+  <!-- *Grafica 1 -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title class="title-card">{{'general.lockerLocation' | translate}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content id="map-content">
+      <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2986.185546079711!2d-99.09530208904192!3d19.440123476737973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1fbcdce338345%3A0x29aa30171b06b0bb!2sIKEA%20Ocean%C3%ADa!5e0!3m2!1ses-419!2smx!4v1622147077914!5m2!1ses-419!2smx" width="100%" height="404" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+      <agm-map *ngIf="coords" [scrollwheel]="true" [fullscreenControl]="true" [latitude]="23.470698" [longitude]="-101.984041" [zoom]="5" [disableDefaultUI]="true" [zoomControl]="true" [streetViewControl]="false">
+        <agm-marker *ngFor="let coord of coords; let i = index" [label]="coord.locker_name.split('')[0]" [latitude]="coord.lat" [longitude]="coord.lng" (mouseOut)="outMarker()" (mouseOver)="hoverMarker($event)" (markerClick)="seeLocker(coord, i)"></agm-marker>
+      </agm-map>
+    </mat-card-content>
+  </mat-card>
+  <!-- <mat-card fxFlex="50%">
+    <mat-card-header>
+      <mat-card-title class="title-card">{{ 'dashboard.cards.deliveries_month' | translate }}</mat-card-title>
+      <i class="fas fa-info-circle" matTooltipClass="toolTip" matTooltip="Info about the action" matTooltipPosition="above"></i>
+    </mat-card-header>
+    <mat-card-content>
+      <app-chart-client *ngIf="dataChart" type="dashboard" data="{{dataChart}}"></app-chart-client>
+    </mat-card-content>
+  </mat-card> -->
+</div>
+
+<mat-card class="table-card" fxFlex="100%">
+    <app-dashboard-table data="{{data}}" columns="{{columns}}" hover="{{hoverCoords}}"></app-dashboard-table>
+</mat-card>
+  </div>
+  <app-client-footer></app-client-footer>

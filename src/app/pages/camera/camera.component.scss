@@ -1,0 +1,52 @@
+app-menu{
+    z-index: 5;
+}
+    
+    .text-normal{
+        color: #222529;	font-family: Gilroy-Medium;	font-size: 16px;	letter-spacing: -0.08px;	line-height: 18px;
+    }
+    
+    .red_btn{
+        background-color: #FF535B;
+        color: #FFFFFF;
+        font-family: Gilroy-Bold;	
+        font-size: 13px;	
+        line-height: 13px;
+        text-transform: uppercase;
+        padding: 6px 12px;
+        
+    border: none;
+    outline: none;
+    cursor: pointer;
+    border-radius: 4px;	
+    }
+
+input{
+    padding-right: 0px!important;
+}
+input[type=date]::-webkit-inner-spin-button{
+    height:100%;
+}
+
+input[type=time]::-webkit-inner-spin-button{
+    height: 100%;
+}
+
+.title-cam {
+    text-transform: uppercase; 
+    font-weight: bold; 
+    color: #222529;	
+    font-family: Gilroy-Bold;
+    font-size: 24px;
+    letter-spacing: -0.2px;
+    line-height: 24px;
+}
+
+.text-status{
+    display: inline-block; 
+    color: #222529; 
+    font-family: Roboto;	
+    font-size: 16px;	
+    letter-spacing: -0.08px;	
+    line-height: 18px;
+}

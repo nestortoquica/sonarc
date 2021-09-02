@@ -1,0 +1,87 @@
+<mat-card fxFlex>
+    <mat-card-header>
+        <mat-card-title class="title-card" translate>payments.type_card</mat-card-title>
+    </mat-card-header>
+    <mat-card-content id="contentCards" fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="2%" style="padding: 24px;">
+        <div class="card-bg">
+            <img width="31" src="\assets\images\chip.png">
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label" translate>payments.name_owner</mat-label>
+            <input class="input-w" type="text" maxlength="100" [(ngModel)]=extraData.name>
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label" translate>general.address</mat-label>
+            <input class="input-w" type="text" maxlength="100" [(ngModel)]=extraData.address_line1>
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label" translate>general.city</mat-label>
+            <input class="input-w" type="text" maxlength="100" [(ngModel)]=extraData.address_city>
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label" translate>general.country</mat-label>
+            <input class="input-w" type="text" maxlength="100" [(ngModel)]=extraData.address_state>
+        </div>
+        <p *ngIf="errorMsg!=''" class="msg-error">{{errorMsg}}</p>
+        <div fxFlex fxLayout="column" fxLayoutGap="10px" style="width:380px">
+            <mat-label class="label" translate>payments.card</mat-label>
+            <div style="padding-bottom: 12px;">
+                <stripe-card #stripeCard 
+                    id="stripeCard"
+                    (catch) = "onStripeError($event)"
+                    [(invalid)] = "invalidError"
+                    (cardMounted) = "cardReady = 1"
+                    (tokenChange) = "setStripeToken($event)">
+                </stripe-card>
+                <div *ngIf="invalidError" class="msg-error">{{ invalidError.message }}</div>
+                <div *ngIf="err_msg!=''" class="msg-error">{{err_msg}}</div>
+            </div>
+            <button class="btn button-red" (click)="payAmount()">{{ 'payments.pay' | translate }} $ {{totalPay}} MXN</button>
+        </div>
+    </mat-card-content>
+    <mat-card-footer class="card-footer" fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="24px" >
+        <p translate>payments.save_card</p>
+        <mat-slide-toggle [(ngModel)]="slideSaveCard"></mat-slide-toggle>
+    </mat-card-footer>
+</mat-card>
+
+<mat-card fxFlex>
+    <mat-card-header>
+    <mat-card-title class="title-card" translate>payments.registered_cards</mat-card-title>
+    </mat-card-header>
+    <mat-card-content id="contentPaypal" fxLayout="column" fxLayoutAlign="start start">
+        <div class="h-accordion">
+            <label style="width:66%;" class="label" translate>payments.type_card</label>
+            <label class="label" translate>payments.expires</label>
+        </div>
+        <mat-accordion multi>
+            <mat-expansion-panel *ngFor="let card of registeredCards;">
+                <mat-expansion-panel-header>
+                    <p class="panel"><i class="far fa-credit-card icon-card"></i> {{card.brand}} {{ 'payments.ending_in' | translate }} {{card.last4}}</p>
+                    <p>{{card.exp_month}}/{{card.exp_year}}</p>
+                </mat-expansion-panel-header>
+                <div class="panel-content">
+                    <div style="width:68.5%;">
+                        <p><b translate>payments.name_owner</b></p>
+                        <p>{{card.name}}</p>
+                    </div>
+                    <div style="width: 31%;">
+                        <p><b translate>payments.billing_address</b></p>
+                        <p>{{card.address_line1}}</p>
+                        <p>{{card.address_city}}</p>
+                        <p>{{card.address_state}}</p>
+                        <p>{{card.address_zip}}</p>
+                        <div><button class="btn button-red" style="float: right;" (click)="payment_registered_card(card.id)" translate>payments.pay</button></div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+    </mat-card-content>
+</mat-card>
+
+<mat-card fxFlex>
+    <mat-card-content fxLayout="row" fxLayoutAlign="space-between center" style="padding: 24px; line-height: 24px;" class="list-footer">
+        <p translate>payments.total_pay</p>
+        <p><b>$ {{totalPay}} MXN</b></p>
+    </mat-card-content>
+</mat-card>

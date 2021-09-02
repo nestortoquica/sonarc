@@ -1,0 +1,18 @@
+<div class="container">
+	<h3>{{ 'general.enter_email' | translate }}</h3>
+	<form  class="box-form" fxLayout="column">
+		<input type="text"
+                    class="box-input {{styles_input}}" 
+                    maxlength="50" 
+                    name="user"
+                    placeholder="{{ 'login.user' | translate }}" 
+                    matInput
+                    required
+                    [(ngModel)]="email_change"
+                    >
+		<div>
+        	<button type="submit" class="button-ikea" mat-raised-button (click)="updateEmail()" mat-button mat-dialog-close>{{ 'general.save_button' | translate }}</button>
+        	<button class="button-close" mat-button mat-dialog-close>{{'general.cancel' | translate}}</button>
+        </div>
+	</form>
+</div>

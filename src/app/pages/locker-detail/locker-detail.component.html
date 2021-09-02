@@ -1,0 +1,194 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+  <app-menu></app-menu>
+  <div class="content-body">
+    <mat-tab-group animationDuration="0ms" class="tabs tabs-locatario">
+      <mat-tab label="{{ 'lockers.summary' | translate }}" >
+
+        <div class="btn-group" fxLayoutGap="10px">
+          <span class="text-status"><b>{{ 'general.status' | translate }}:</b> {{ statusLocker }}</span>
+          <button class="btn btn-white" (click)="onSeeCameras(id)">{{ 'lockers.view_cameras' | translate }}</button>
+          <!--<button class="btn btn-white">{{ 'lockers.take_screenshot' | translate }}</button>-->
+          <button class="btn button-red" (click)="onResetLocker(id)">{{ 'lockers.restart' | translate }}</button>
+        </div>
+
+        <div fxLayoutGap="36px" style="margin-top: 85px;" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+          <mat-card fxFlex="50%">
+            <mat-card-header>
+              <mat-card-title class="title-card" translate>lockers.doors</mat-card-title>
+            </mat-card-header>
+            <mat-card-content style="padding: 36px 40px;">
+              <app-lockers-grid fxLayoutGap="36px"></app-lockers-grid>
+            </mat-card-content>
+          </mat-card>
+          <mat-card fxFlex>
+            <mat-card-header>
+              <mat-card-title class="title-card" translate>lockers.location</mat-card-title>
+            </mat-card-header>
+            <mat-card-content style="padding: 18px; height: 255px;">
+              <app-google-maps latitud="{{latitud}}" longitud="{{longitud}}" coords="{{arrayMarker}}"></app-google-maps>
+            </mat-card-content>
+            <mat-card-footer>
+              <div>{{responseLockerLocation}}</div>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+        <div style="margin-top: 36px;"><app-tableP dataForTable="{{dataTableAux}}" columns="{{dataColumn}}"></app-tableP></div>
+        
+      </mat-tab>
+
+      <mat-tab label="{{ 'lockers.historical' | translate }}">
+        <div fxLayout="row" fxLayoutAlign="end none" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center" fxLayoutGap="15px">
+          <mat-form-field class="form-date" color="accent">
+            <input matInput [matDatepicker]="picker1" 
+            [max] = "dateStartMax" 
+            [min] = "dateStartMin"
+            [formControl]="dateStart"
+            (dateChange)="addEvent('start',$event)">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+          
+          <mat-form-field class="form-date" color="accent">
+            <input matInput [matDatepicker]="picker2"
+                   [formControl]="dateEnd"
+                   [max] = "currentDate"
+                   [min] = "dateEndMin"
+                   (dateChange)="addEvent('end',$event)">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2 color="primary"></mat-datepicker>
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="row" 
+          fxLayout.sm="column" fxLayout.xs="column"
+          fxLayoutGap.lt-md="25px"
+          fxLayoutGap.gt-sm="1%" style="margin: 25px 9px;">
+            <div fxLayout="row" fxFlex.gt-sm="50%" fxFlex.xs="100%" fxLayoutGap="2%" fxLayout.xs="column" fxLayoutGap.xs="25px">
+              <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                <mat-card-title class="title-card-md">{{'lockers.use_total' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{quantity_metric.percent_use_locker_total}}</mat-card-content>
+                <mat-card-footer class="up card-footer"><i class="material-icons">arrow_drop_up</i> <b>2,450%</b></mat-card-footer>
+              </mat-card>
+              <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                  <mat-card-title class="title-card-md">{{'lockers.usage_month' | translate }}</mat-card-title>
+                  <mat-card-content class="cards-quantity">{{quantity_metric.percent_use_locker}}</mat-card-content>
+                  <mat-card-footer class="down card-footer"><i class="material-icons">arrow_drop_down</i> <b>25%</b></mat-card-footer>    
+              </mat-card>
+            </div>
+            <div fxLayout="row" fxFlex.gt-sm="50%" fxFlex.xs="100%" fxLayoutGap="2%" fxLayout.xs="column" fxLayoutGap.xs="25px">
+              <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                <mat-card-title class="title-card-md">{{'lockers.recurring_users' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{quantity_metric.user_recurrent}}</mat-card-content>
+                <mat-card-footer class="card-footer"><i class="material-icons worthless" style="font-size: 9px;">fiber_manual_record</i> <b>0%</b></mat-card-footer>
+              </mat-card>
+              <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                  <mat-card-title class="title-card-md">{{'lockers.success_rate' | translate }}</mat-card-title>
+                  <mat-card-content class="cards-quantity">{{quantity_metric.percent_delivery_success}}</mat-card-content>
+                  <mat-card-footer class="up card-footer"><i class="material-icons">arrow_drop_up</i> <b>346%</b></mat-card-footer>
+              </mat-card>
+            </div>
+        </div>
+
+        <div fxLayout="row" 
+          fxLayout.sm="column" fxLayout.xs="column"
+          fxLayoutGap.lt-md="25px"
+          fxLayoutGap.gt-sm="1%"
+          style="margin: 0 9px 36px;">
+          <div fxLayout="row" fxFlex.gt-sm="50%" fxFlex.xs="100%" fxLayoutGap="2%" fxLayout.xs="column" fxLayoutGap.xs="25px">
+            <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+              <mat-card-title class="title-card-md">{{'lockers.used_size' | translate }}</mat-card-title>
+              <mat-card-content class="cards-quantity">{{quantity_metric.most_used_size}}</mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                <mat-card-title class="title-card-md">{{'lockers.team_uptime' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{quantity_metric.percent_uptime_locker}}</mat-card-content>     
+            </mat-card>
+          </div>
+          <div fxLayout="row" fxFlex.gt-sm="50%" fxFlex.xs="100%" fxLayoutGap="2%" fxLayout.xs="column" fxLayoutGap.xs="25px">
+            <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                <mat-card-title class="title-card-md">{{'lockers.total_users' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{quantity_metric.total_user_locker}}</mat-card-content>
+            </mat-card>
+            <mat-card fxFlex="50%" fxFlex.xs="100%" class="card-sm">
+                <mat-card-title class="title-card-md">{{'lockers.avg_collection' | translate }}</mat-card-title>
+                <mat-card-content class="cards-quantity">{{avg_time}} HRS</mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+
+        <div fxLayout="row"
+          fxLayoutGap= "2.6%"
+          fxLayout.sm="column"
+          fxLayout.xs="column"
+          class="cards-lg"
+          style="margin: 0 9px 36px;">
+          <mat-card class="card" fxFlex="31.6%">
+            <mat-card-title class="title-card-lg">{{'lockers.packages_delivered' | translate }}</mat-card-title>
+            <mat-card-content>
+              <app-chart-paquetes axisX="{{delivered_monthAxisX}}" axisY="{{delivered_monthAxisY}}"></app-chart-paquetes>
+            </mat-card-content>
+            <mat-card-footer *ngIf="delivered_monthAxisX.length != 0" class="card-footer" fxLayout="row" fxLayoutAlign="space-between none">
+              <p>{{'lockers.total_packages_delivered' | translate }}</p>
+              <span class="text-val">{{quantity_metric.total_delivery_year}}</span>
+            </mat-card-footer>
+          </mat-card>
+
+          <mat-card class="card" fxFlex="31.6%">
+            <mat-card-title class="title-card-lg">{{'lockers.packages_returned' | translate }}</mat-card-title>
+            <mat-card-content>
+                <app-chart-paquetes  axisX="{{returned_monthAxisX}}" axisY="{{returned_monthAxisY}}"></app-chart-paquetes>
+            </mat-card-content>
+            <mat-card-footer *ngIf="returned_monthAxisX.length != 0" class="card-footer" fxLayout="row" fxLayoutAlign="space-between none">
+              <p>{{'lockers.total_packages_returned' | translate }}</p>
+              <span class="text-val">{{quantity_metric.total_returned_year}}</span>
+            </mat-card-footer>
+          </mat-card>
+
+          <mat-card class="card" fxFlex="31.6%">
+            <mat-card-title class="title-card-lg">{{'lockers.packages_collected' | translate }}</mat-card-title>
+            <mat-card-content>
+                <app-chart-paquetes  axisX="{{pickup_monthAxisX}}" axisY="{{pickup_monthAxisY}}"></app-chart-paquetes>
+            </mat-card-content>
+            <mat-card-footer *ngIf="pickup_monthAxisX.length != 0" class="card-footer" fxLayout="row" fxLayoutAlign="space-between none">
+              <p>{{'lockers.total_packages_collected' | translate }}</p>
+              <span class="text-val">{{quantity_metric.total_pickup_year}}</span>
+            </mat-card-footer>
+          </mat-card>
+        </div>
+
+        <div fxLayout="row"
+          fxLayoutGap= "2.6%"
+          fxLayout.sm="column"
+          fxLayout.xs="column"
+          class="cards-lg"
+          style="margin: 0 9px 36px;">
+          <mat-card class="card" fxFlex="31.6%">
+            <mat-card-title class="title-card-lg">{{'lockers.deliveries_carriers' | translate }}</mat-card-title>
+            <mat-card-content>
+              <app-chart-entregas arrayName="{{carrierNames}}" arrayY="{{carrierY}}"></app-chart-entregas>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="card" fxFlex="31.6%" fxShow.sm="false" fxShow.xs="false">
+            <mat-card-title class="title-card-lg">{{'lockers.state_packages' | translate }}</mat-card-title>
+            <mat-card-content>
+              <app-chart-entregas arrayName="{{package_statusNames}}" arrayY="{{package_statusY}}"></app-chart-entregas>
+            </mat-card-content>
+          </mat-card>
+
+          <mat-card class="card" fxFlex="31.6%" fxShow.sm="false" fxShow.xs="false">
+            <mat-card-title class="title-card-lg">{{'lockers.space_efficiency' | translate }}</mat-card-title>
+            <mat-card-content>
+              <app-chart-entregas arrayName="{{package_sizeNames}}" arrayY="{{package_sizeY}}"></app-chart-entregas>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+      </mat-tab>
+        <mat-tab label="{{ 'user.users' | translate }}" *ngIf="typeUser==2">
+          <div style="height:100vh;"></div>
+        </mat-tab>
+    </mat-tab-group>
+  </div>
+  <app-footer></app-footer>
+</div>

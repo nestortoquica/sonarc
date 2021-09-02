@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="124px" height="240px" viewBox="0 0 124 240" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>module_a2</title>
+    <g id="Admin-Views-2nd-round" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Administrador_Locker_Add_1.06" transform="translate(-408.000000, -1525.000000)">
+            <g id="module_a2" transform="translate(408.000000, 1525.000000)">
+                <rect id="Rectangle-Copy-49" stroke="#979797" stroke-width="0.5" fill="#EEEEEE" x="0.25" y="0.25" width="123.5" height="239.5"></rect>
+                <g id="Group-12-Copy" transform="translate(10.000000, 10.000000)">
+                    <rect id="Rectangle" fill="#000000" x="0" y="0" width="30" height="19" rx="9.5"></rect>
+                    <path d="M8.576,14 L9.248,12.032 L12.816,12.032 L13.504,14 L15.84,14 L12.4,4.576 L9.712,4.576 L6.304,14 L8.576,14 Z M12.176,10.224 L9.856,10.224 L10.224,9.152 C10.752,7.632 10.992,6.48 10.992,6.48 L11.056,6.48 L11.0608805,6.50762434 C11.0938182,6.68998347 11.2974545,7.75709091 11.792,9.168 L12.176,10.224 Z M23.232,14 L23.232,12.112 L19.408,12.112 L19.408,12.048 C20.72,11.264 23.12,9.824 23.12,7.392 C23.12,5.28 21.824,4.384 19.792,4.384 C17.488,4.384 16.528,5.744 16.528,7.168 C16.528,8.016 16.928,8.784 17.424,9.216 L19.248,8.336 C18.944,8.032 18.704,7.664 18.704,7.248 C18.704,6.688 19.056,6.24 19.76,6.24 C20.512,6.24 20.864,6.752 20.864,7.472 C20.864,8.944 19.312,10.144 16.64,12.352 L16.64,14 L23.232,14 Z" id="A2" fill="#FFFFFF" fill-rule="nonzero"></path>
+                </g>
+                <rect id="Rectangle-Copy-50" stroke="#979797" stroke-width="0.5" x="55.25" y="8.25" width="13.5" height="223.5"></rect>
+                <rect id="Rectangle-Copy-51" stroke="#979797" stroke-width="0.5" x="8.25" y="8.25" width="42.5" height="223.5"></rect>
+                <rect id="Rectangle-Copy-52" stroke="#979797" stroke-width="0.5" x="73.25" y="8.25" width="42.5" height="223.5"></rect>
+                <rect id="Rectangle-Copy-67" fill="#979797" x="8" y="41" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-102" fill="#979797" x="73" y="41" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-68" fill="#979797" x="8" y="74" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-103" fill="#979797" x="73" y="74" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-69" fill="#979797" x="8" y="106" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-104" fill="#979797" x="73" y="106" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-71" fill="#979797" x="8" y="172" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-101" fill="#979797" x="8" y="139" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-105" fill="#979797" x="73" y="139" width="43" height="1"></rect>
+                <rect id="Rectangle-Copy-72" fill="#979797" x="73" y="172" width="43" height="1"></rect>
+                <circle id="Oval-Copy-23" stroke="#979797" cx="62" cy="13" r="1"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

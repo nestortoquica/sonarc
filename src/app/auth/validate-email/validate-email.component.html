@@ -1,0 +1,18 @@
+<div class="container" >
+
+    <div  fxLayoutGap="2%" fxLayoutGap.xs="5%" fxLayout="column" fxLayout.xs="column" fxLayoutAlign="center center" fxLayoutAlign.xs="center center"  >
+        <a  class="logo"  fxFlex="100%" routerLink=""><img src="\assets\images\vivipost-logo.svg" alt="logo"></a>
+        <div fxLayout="row" >
+            <mat-card fxFlex="80%" fxFlex.xs="100%" class="card" fxLayout="column" fxLayoutAlign="end center" >
+                <div fxFlex="64%" fxFlex.xs="100%" fxLayoutGap="5%" fxLayoutGap.xs="10%"   fxLayout="column" fxLayoutAlign="center center" style="margin:10px;" >
+                    <p class="text">{{ 'validate.account' | translate }}</p>
+                    <div>
+                        <button (click)="SentLink()" [disabled]="activeButton" class="boton-reenviar {{buttonBackgorund}}">{{ 'general.resend_link' | translate }}</button>
+                    </div>
+                </div>
+                
+            </mat-card>
+        </div>
+    </div>
+
+</div>

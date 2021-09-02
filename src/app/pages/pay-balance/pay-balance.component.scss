@@ -1,0 +1,48 @@
+.text-balance{
+    color: #3D3D3D;
+    font-family: Lato-Regular;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.23px;
+    line-height: 13px;
+    margin: 0;
+    text-transform: uppercase;
+}
+.text-amount{
+    color: #000000;
+    font-family: Lato-Regular;
+    font-size: 24px;
+    letter-spacing: 1.56px;
+    line-height: 29px;
+    margin: 0;
+}
+
+.card-footer{
+    padding: 0 24px !important;
+    .footer-title{
+        color: #9B9B9B;
+        font-family: Lato-Regular;
+        font-size: 16px;
+        letter-spacing: 0;
+        line-height: 16px;
+    }
+    .radio-text{
+        color: #767676;
+        font-family: Lato-Regular;
+        font-size: 13px;
+        letter-spacing: 0.25px;
+        line-height: 14px;
+    }
+}
+
+.symbol{
+    margin-right: 3px;
+    font-size: 18px;
+}
+
+.input-amount{
+    width: 100px;
+    text-align: right;
+    font-family: Lato-Regular;
+    color: #494949;
+}

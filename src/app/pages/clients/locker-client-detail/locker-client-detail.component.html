@@ -1,0 +1,344 @@
+<app-menu-client></app-menu-client>
+<div class="content-body">
+  <mat-tab-group animationDuration="500ms" class="tabs tabs-client">
+    <!--* Tab Summary -->
+    <mat-tab label="{{ 'lockers.summary' | translate }}" >
+      <div class="btn-group" fxLayoutGap="10px">
+      </div>
+      <div fxLayoutGap="20px" style="margin-top: 85px;" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+        <mat-card fxFlex="75%">
+          <mat-card-header>
+            <mat-card-title class="title-card" translate>lockers.status</mat-card-title>
+            <i class="fas fa-info-circle" matTooltip="{{'info.lockers.summary.door_status' | translate }}" matTooltipPosition="above"></i>
+          </mat-card-header>
+          <mat-card-content id="card-grid">
+            <app-lockers-client-grid [cStatus]="cStatus" [modulo]="modulo" fxLayoutGap="20px"></app-lockers-client-grid>
+          </mat-card-content>
+          <mat-card-footer id="locker_footer">
+            <p class="footer-title">{{'lockers.available_locker_size' | translate }}</p>
+            <br>
+            <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" id="sizes">
+              <div class="status">
+                <span>XXXL</span><span class="counter">{{xxxl}}</span>
+              </div>
+              <div class="status">
+                <span>XXL</span><span class="counter">{{xxl}}</span>
+              </div>
+              <div class="status">
+                <span>XL</span><span class="counter">{{xl}}</span>
+              </div>
+              <div class="status">
+                <span>L</span><span class="counter">{{l}}</span>
+              </div>
+              <div class="status">
+                <span>M</span><span class="counter">{{m}}</span>
+              </div>
+            </div>
+          </mat-card-footer>
+        </mat-card>
+        <mat-card fxFlex="25%">
+          <mat-card-header>
+            <mat-card-title class="title-card" translate>lockers.location</mat-card-title>
+            <i class="fas fa-info-circle" matTooltip="{{'info.lockers.summary.location' | translate }}" matTooltipPosition="above"></i>
+          </mat-card-header>
+          <mat-card-content id="map-content">
+            <app-google-maps latitud="{{latitud}}" longitud="{{longitud}}" coords="{{arrayMarker}}"></app-google-maps>
+          </mat-card-content>
+          <mat-card-footer>
+            <!-- <p>{{address}}</p> -->
+            <p>{{ address }}</p>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+      <div fxLayout="row" style="margin-top: 20px;">
+        <mat-card fxFlex="100%" fxLayout="column">          
+          <app-orders-table data="{{dataTableAux}}" columns="{{dataColumn}}"></app-orders-table>
+        </mat-card>
+      </div>
+    </mat-tab>
+    <!--* Tab Historical -->
+    <mat-tab *ngIf="user_type!=12"  class="historical" label="{{ 'lockers.historical' | translate }}">
+      <div class="btn-group" id="date-metrics" fxLayoutGap="10px">
+        <mat-form-field class="dates" (click)="startm.open()" >
+          <input name="sdate" [(ngModel)]="msdate" (dateChange)="getMetrics()" matInput [matDatepicker]="startm" placeholder="{{'general.start_date' | translate}}" [max]="maxDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="startm"></mat-datepicker-toggle>
+          <mat-datepicker #startm></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field class="dates" (click)="endm.open()">
+          <input name="fdate" [(ngModel)]="mfdate" (dateChange)="getMetrics()" matInput [matDatepicker]="endm" placeholder="{{'general.end_date' | translate}}" [max]="maxDate" readonly>
+          <mat-datepicker-toggle matSuffix [for]="endm"></mat-datepicker-toggle>
+          <mat-datepicker #endm></mat-datepicker>
+        </mat-form-field>
+        <!-- <mat-form-field id="download" >
+          <mat-label>{{'general.download' | translate}}</mat-label>
+          <mat-select>
+            <mat-option (click)="downloadPDF()" id="pdf" value="PDF"><i class="far fa-file-pdf"></i> PDF</mat-option>
+            <mat-option (click)="downloadExcel()" id="excel" value="Excel"><i class="far fa-file-excel"></i> Excel</mat-option>
+          </mat-select>
+        </mat-form-field> -->
+        <button class="download-button" (click)="downloadPDF()">{{'general.download' | translate}} PDF</button>
+      </div>
+      <div id="metrics" *ngIf="metrics" style="margin-top: 150px;" fxLayout="column">
+        <!-- *Row 1 -->
+        <div style="margin-top: 20px;" id="metric-card" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxLayoutGap="20px">
+          <mat-card fxFlex="30%"> 
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'lockers.usage_month' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.monthly_locker_usage' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content>
+              <app-chart-client type="metrics" data="{{dataChart}}" months="{{months}}"></app-chart-client>
+              <!-- <p><span class="big">{{usage}} </span>{{'deliveries.orders' | translate}}</p> -->
+            </mat-card-content>
+          </mat-card>
+          <mat-card fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card" >{{ 'lockers.orders_delivered' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.orders_delivered_compartment_size' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content>
+              <app-chart-bar type="metrics" arrayName="{{compSizes}}"></app-chart-bar>
+              <!-- <div class="list" *ngFor="let size of compSizes">
+                <div>{{size.compartment_name}} </div>
+                <div>{{size.cantidad}}</div>
+              </div> -->
+            </mat-card-content>
+          </mat-card>
+          <mat-card fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card" >{{ 'lockers.orders_returned' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.orders_returned_month' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content>
+              <app-chart-client type="dashboard" data="{{datar}}"></app-chart-client>
+              <!-- <p><span class="big">{{datar}} </span>{{'deliveries.orders' | translate}}</p> -->
+            </mat-card-content>
+          </mat-card>
+        </div>
+        <!-- *Row 2 -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxLayoutGap="20px">
+            <mat-card  fxFlex="30%">
+              <mat-card-header>
+                <mat-card-title class="title-card">{{ 'general.totalCustomers' | translate }}</mat-card-title>
+                 <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.total_customers' | translate }}"  matTooltipPosition="above"></i>
+              </mat-card-header>
+              <mat-card-content>
+                  <p><span class="big">{{metrics[0][1][0].total_user_locker}} </span>{{'general.customers' | translate}}</p>
+                </mat-card-content>
+            </mat-card>
+            <mat-card  fxFlex="30%">
+              <mat-card-header>
+                <mat-card-title class="title-card">{{ 'lockers.use_total' | translate }}</mat-card-title>
+                <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.total_locker_use' | translate }}" matTooltipPosition="above"></i>
+              </mat-card-header>
+              <mat-card-content>
+                <p><span class="big">{{metrics[0][1][0].total_locker_usage}} </span>{{'general.customers' | translate}}</p>
+              </mat-card-content>
+            </mat-card>
+            <mat-card  fxFlex="30%">
+              <mat-card-header>
+                <mat-card-title class="title-card">{{ 'lockers.returning' | translate }}</mat-card-title>
+                <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.returning_customers' | translate }}" matTooltipPosition="above"></i>
+              </mat-card-header>
+              <mat-card-content>
+                  <p><span class="big">{{metrics[0][1][0].user_recurrent}} </span>{{'general.customers' | translate}}</p>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <!-- *Row 3 -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxLayoutGap="20px">
+          <mat-card fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card">{{'lockers.used_size' | translate}}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.most_used_compartment_size' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <ol>
+                <div *ngFor="let item of metrics[1][1] | slice:0:3; let i = index">
+                  <h2 *ngIf="i==0"><li>{{item.compartment_name}} ({{item.countCompartment}})</li></h2>
+                  <li *ngIf="i!=0">{{item.compartment_name}} ({{item.countCompartment}})</li>
+                </div>
+              </ol>
+            </mat-card-content>
+          </mat-card>
+          <mat-card fxFlex="30%" >
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'deliveries.deliver_today' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.orders_delivered_today' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <p><span class="big">{{metrics[0][1][0].total_delivery_today}} </span>{{'deliveries.orders' | translate}}</p>
+              <p class="sub">({{metrics[0][1][0].percent_delivery_today_and_yesterday}} {{'deliveries.compared' | translate}})</p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card fxFlex="30%" >
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'lockers.average_delivery' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.avg_delivery_time' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <p><span class="big">--:-- </span>{{'deliveries.hours' | translate}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+         <!-- *Row 4 -->
+        <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-around stretch" fxLayoutGap="20px">
+          <mat-card fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'lockers.average_collection' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.avg_collection_time' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <p><span class="big">{{ avg_time }} </span>{{'deliveries.hours' | translate}}</p>
+              <p class="sub">({{'deliveries.dtoc' | translate}})</p>
+            </mat-card-content>
+          </mat-card>
+          <mat-card  fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'lockers.collection_success' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.collection_success_rate' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <p><span class="big">{{ collection_success_rate }}%</span> {{'deliveries.orders' | translate}}</p>
+              <p class="sub">({{metrics[0][1][0].collection_success_rate_pickup}} {{'deliveries.of' | translate}} {{metrics[0][1][0].collection_success_rate_delivery}}) {{'deliveries.orders' | translate}}</p>
+            </mat-card-content>
+          </mat-card> 
+          <mat-card  fxFlex="30%">
+            <mat-card-header>
+              <mat-card-title class="title-card">{{ 'lockers.success_rate' | translate }}</mat-card-title>
+              <i class="fas fa-info-circle" matTooltip="{{'info.lockers.historical.delivery_success_rate' | translate }}" matTooltipPosition="above"></i>
+            </mat-card-header>
+            <mat-card-content class="small-content">
+              <p><span class="big">0% </span>{{'deliveries.orders' | translate}}</p>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+
+    </mat-tab>
+    <!-- *Tab Cameras -->
+    <mat-tab *ngIf="user_type!=12" label="{{'lockers.cameras' | translate}}">
+      <div class="btn-group" fxLayoutGap="10px">
+        <button class="restart" (click)="onResetLocker(id)"><i class="fas fa-sync"></i> {{ 'lockers.restart' | translate }}</button>
+      </div>
+      <!-- Camaras en general -->
+      <div *ngIf="!camera" id="cameras-tab" style="margin-top: 85px;">
+        <div fxLayout="row wrap" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="36px" >
+          <mat-card fxFlex="30%" *ngFor="let c of cameras | slice:0:1">
+            <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+              <mat-card-title class="title-card">{{c.monitor_name}}</mat-card-title>
+              <span class="historial" (click)="toggleCamera(c)">{{ 'cameras.view' | translate }}</span>
+            </mat-card-header>
+            <mat-card-content>
+              <img height="385px" width="100%" src={{c.url_view}} alt="" scrolling="auto" style="border-radius: 8px; ">
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <!-- Camara especifica -->
+      <div *ngIf="camera" id="camera-tab" style="margin-top: 85px;">
+        <mat-card>
+          <mat-card-header fxLayout="row" fxLayoutAlign="space-between center">
+            <mat-card-title class="title-card">
+              Camera {{cameraName}}
+            </mat-card-title>
+              <div id="back" (click)="camera = !camera">
+                <i class="fas fa-chevron-left"></i> {{'cameras.back' | translate}}
+              </div>
+          </mat-card-header>
+          <mat-card-content id="single-camera" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+            <img fxFlex="70%" src={{url}} alt="" scrolling="auto">
+            
+            <div class="not-safari" *ngIf="!safari" id="camera-detail" fxFlex="30%" fxLayout="row" fxLayout.fxLayout.lt-lg="column" fxLayout.sm="column" fxLayout.xs="column">
+              <form action="">
+                <p>{{'cameras.request' | translate}}</p>
+                <br>
+                <div class="datetime" >
+                  <label for="date">{{'general.date' | translate }}</label>
+                  <input *ngIf="device" matInput id="date" type="date" name="ddate" [(ngModel)]="ddate_stamp">
+                  <mat-form-field *ngIf="!device" apareance="outline">
+                    <input name="date" [(ngModel)]="date_stamp" matInput id="date" [owlDateTimeTrigger]="date" [owlDateTime]="date" readonly >
+                    <span class="trigger" [owlDateTimeTrigger]="date" matPrefix class="material-icons">calendar_today</span>
+                    <span class="trigger" [owlDateTimeTrigger]="date" matSuffix class="material-icons">expand_more</span>
+                    <owl-date-time [pickerType]="'calendar'" #date></owl-date-time>
+                  </mat-form-field>
+                </div>  
+                <div class="time" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="start center">
+                  <div fxFlex="30%" fxFlex.sm="100%" fxFlex.xs="100%" class="datetime">
+                    <label for="sdate">{{'general.start_time' | translate}}</label>
+                    <input *ngIf="device" matInput id="sdate" type="time" name="dsdate" [(ngModel)]="dtime_start">
+                    <mat-form-field apareance="outline" *ngIf="!device">
+                      <input name="sdate" [(ngModel)]="time_start" matInput id="sdate" [owlDateTimeTrigger]="sdate" [owlDateTime]="sdate" readonly >
+                      <span class="trigger" [owlDateTimeTrigger]="sdate" matPrefix class="material-icons">schedule</span>
+                      <span class="trigger" [owlDateTimeTrigger]="sdate" matSuffix class="material-icons">expand_more</span>
+                      <owl-date-time [pickerType]="'timer'" #sdate></owl-date-time>
+                    </mat-form-field>
+                  </div>
+                  <div fxFlex="30%" fxFlex.sm="100%" fxFlex.xs="100%" class="datetime">
+                    <label for="fdate">{{'general.end_time' | translate}}</label>
+                    <input *ngIf="device" matInput id="fdate" type="time" [(ngModel)]="time_end" name="dfdate">
+                    <mat-form-field apareance="outline" *ngIf="!device">
+                      <input name="fdate" [(ngModel)]="time_end" matInput id="fdate" [owlDateTimeTrigger]="fdate" [owlDateTime]="fdate" readonly >
+                      <span class="trigger" [owlDateTimeTrigger]="fdate" matPrefix class="material-icons">schedule</span>
+                      <span class="trigger" [owlDateTimeTrigger]="fdate" matSuffix class="material-icons">expand_more</span>
+                      <owl-date-time [pickerType]="'timer'" #fdate></owl-date-time>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div fxLayout="row">
+                  <button class="btn button-blue" (click)="record()">{{'cameras.recording' | translate }}</button>
+                </div>     
+              </form>
+              
+            </div>
+            <div *ngIf="safari" id="camera-detail" fxFlex="100%" fxLayout="row" fxLayout.fxLayout.lt-lg="column" fxLayout.sm="column" fxLayout.xs="column">
+              <form action="" id="safari">
+                <p>{{'cameras.request' | translate}}</p>
+                <br>
+                <div class="datetime">
+                  <mat-form-field *ngIf="!device" appareance="outline">
+                    <mat-label for="date">{{'general.date' | translate}}</mat-label>
+                      <input matInput [(ngModel)]="sdate_stamp" readonly [owlDateTimeTrigger]="date" [owlDateTime]="date" type="date" name="date" id="date">
+                      <span class="trigger" [owlDateTimeTrigger]="date" matPrefix class="material-icons">calendar_today</span>
+                      <owl-date-time [pickerType]="'calendar'" #date></owl-date-time>
+                  </mat-form-field>
+                  <mat-form-field *ngIf="device" appareance="outline">
+                    <mat-label for="date">{{'general.date' | translate}}</mat-label>
+                    <input [(ngModel)]="stime_start" matInput readonly type="date" name="date" id="date">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="!device" appareance="outline">
+                    <mat-label for="sdate">{{'general.start_time' | translate}}</mat-label>
+                      <input [(ngModel)]="stime_end" matInput readonly [owlDateTimeTrigger]="sdate" [owlDateTime]="sdate" type="time" name="sdate" id="sdate">
+                      <span  class="trigger" [owlDateTimeTrigger]="sdate" matPrefix class="material-icons">calendar_today</span>
+                      <owl-date-time [pickerType]="'timer'" #sdate></owl-date-time>
+                  </mat-form-field>
+                  <mat-form-field *ngIf="device" appareance="outline">
+                    <mat-label for="sdate">{{'general.start_time' | translate}}</mat-label>
+                    <input matInput readonly type="time" name="sdate" id="sdate">
+                  </mat-form-field>
+                  <mat-form-field *ngIf="!device" appareance="outline">
+                    <mat-label for="fdate">{{'general.end_time' | translate}}</mat-label>
+                      <input matInput readonly [owlDateTimeTrigger]="fdate" [owlDateTime]="fdate" type="time" name="fdate" id="fdate">
+                      <span  class="trigger" [owlDateTimeTrigger]="fdate" matPrefix class="material-icons">calendar_today</span>
+                      <owl-date-time  [pickerType]="'timer'" #fdate></owl-date-time>
+                  </mat-form-field>
+                  <mat-form-field *ngIf="device" appareance="outline">
+                    <mat-label for="fdate">{{'general.end_time' | translate}}</mat-label>
+                      <input  matInput readonly type="time" name="fdate" id="fdate">
+                    </mat-form-field>
+                </div>
+                <div fxLayout="row">
+                  <button class="btn button-blue" (click)="record()">{{'cameras.recording' | translate }}</button>
+                </div>  
+              </form>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </mat-tab>
+      <mat-tab label="{{ 'user.users' | translate }}" *ngIf="typeUser==2">
+        <div style="height:100vh;"></div>
+      </mat-tab>
+  </mat-tab-group>
+</div>
+<app-client-footer></app-client-footer>

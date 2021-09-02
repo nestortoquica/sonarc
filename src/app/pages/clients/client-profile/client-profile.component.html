@@ -1,0 +1,79 @@
+<app-menu-client></app-menu-client>
+<main id="main">
+    <mat-card fxFlex="80%">
+        <mat-card-header>
+            <mat-card-title class="title-card">
+                {{'profile.data' | translate}}
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form action="">
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'profile.company_name' | translate}}</mat-label>
+                        <input name="company" [(ngModel)]="company" type="text" matInput autocomplete="off" readonly>
+                        <mat-icon matPrefix>business</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'profile.lenguage' | translate}}</mat-label>
+                        <!-- <input type="text" matInput> -->
+                        <mat-select name="lang" [(ngModel)]="lang">
+                            <mat-option value="EN">English</mat-option>
+                            <mat-option value="ES">Español</mat-option>
+                        </mat-select>
+                        <mat-icon matPrefix>translate</mat-icon>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'general.firstname' | translate}}</mat-label>
+                        <input name="fname" [(ngModel)]="fname" type="text" matInput autocomplete="off">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'general.lastname' | translate}}</mat-label>
+                        <input name="aname" [(ngModel)]="sname" type="text" matInput autocomplete="off">
+                        <mat-icon matPrefix>person</mat-icon>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field id="address" appearance="outline">
+                        <mat-label>{{'profile.address' | translate}}</mat-label>
+                        <input name="country" [(ngModel)]="address" type="text" matInput>
+                        <mat-icon matPrefix>map</mat-icon>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'profile.new_contrasena' | translate}}</mat-label>
+                        <input name="pass" [(ngModel)]="pass" type="{{type}}" matInput autocomplete="new-password" >
+                        <mat-icon matPrefix>password</mat-icon>
+                        <mat-icon class="eye" matSuffix (click)="hidePassword()">visibility</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'general.repeat_password' | translate}}</mat-label>
+                        <input name="cPass" [(ngModel)]="cPass" type="{{type}}" matInput autocomplete="off">
+                        <mat-icon matPrefix>password</mat-icon>
+                        <mat-icon class="eye" matSuffix (click)="hidePassword()">visibility</mat-icon>
+                    </mat-form-field>
+                </p>
+                <p>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'general.email' | translate}}</mat-label>
+                        <input name="email" [(ngModel)]="email" type="text" matInput autocomplete="off" readonly>
+                        <mat-icon matPrefix>email</mat-icon>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>{{'table.type_user' | translate}}</mat-label>
+                        <input name="type" [(ngModel)]="userType" type="text" matInput autocomplete="off" readonly>
+                        <mat-icon matPrefix>switch_account</mat-icon>
+                    </mat-form-field>
+                </p>
+            </form>
+        </mat-card-content>
+        <mat-card-footer>
+            <button (click)="submit()" color="primary" mat-raised-button>{{'user.submit' | translate}}</button>
+        </mat-card-footer>
+    </mat-card>
+</main>
+<app-client-footer></app-client-footer>

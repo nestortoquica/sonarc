@@ -1,0 +1,22 @@
+<div>
+    <div class="header-box">
+      <p mat-dialog-title>{{data.title}}</p>
+      <button mat-dialog-close class="btn-close"><mat-icon aria-hidden="false">clear</mat-icon></button>
+    </div>
+    <mat-dialog-content>
+      <mat-card class="body-box">
+        <img src="{{data.image}}">
+      </mat-card>
+    </mat-dialog-content>
+    <div align="end" class="footer-box">
+      <a mat-button
+        [mat-dialog-close]="true"
+        class="button-red btn-add-addres" [href]="fileUrl.changingThisBreaksApplicationSecurity" target="_blank" download="signature.png">{{ 'general.download' | translate }}
+      </a>
+      
+    </div>
+    
+    
+    
+    
+      

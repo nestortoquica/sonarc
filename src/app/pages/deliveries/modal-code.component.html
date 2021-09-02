@@ -1,0 +1,28 @@
+<div>
+    <div class="header-box">
+      <p mat-dialog-title>{{ 'general.text_code' | translate }} </p>
+      <button mat-dialog-close class="btn-close"><mat-icon aria-hidden="false">clear</mat-icon></button>
+    </div>
+    <mat-dialog-content class="body-box">
+      <form action="" fxLayout="column" fxLayoutAlign="space-between stretch">
+        <mat-label>{{ 'dashboard.name_for_the_direction' | translate }}</mat-label>
+        <input
+          type="text" 
+          class="box-input margin-for-input {{styles_input}}" 
+          maxlength="30" 
+          name="nameForTheDirecction"
+          placeholder="{{ 'dashboard.name_for_the_direction' | translate }}" 
+          matInput
+          required
+          [(ngModel)]="nameForTheDirecction">
+      
+      </form>
+      
+    </mat-dialog-content>
+    <div align="end" class="footer-box">
+      <button mat-button
+        [mat-dialog-close]="true"
+        (click)="validate()"
+        class="button-red btn-add-addres">
+      </button>
+    </div>

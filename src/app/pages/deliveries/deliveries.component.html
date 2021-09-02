@@ -1,0 +1,33 @@
+<div class="content-body" fxLayout="column" fxLayoutGap="36px">
+<div class="content-cards" fxLayoutGap="2%" 
+    fxLayout="row" 
+    fxLayout.sm="column" fxLayout.xs="column" 
+    fxLayoutAlign="space-around  center" 
+    fxLayoutAlign.xs="space-around stretch" 
+    fxLayoutAlign.sm="space-around stretch">  
+    <mat-card fxFlex="25%" class="card-sm" fxLayout="column" fxLayoutGap="13px">
+        <mat-card-title class="title-card-md">{{ 'deliveries.most_used_locker' | translate }}</mat-card-title>
+        <mat-card-content class="cards-quantity">{{ topName }}</mat-card-content>
+    </mat-card>
+
+    <mat-card fxFlex="25%" class="card-sm" fxLayout="column" fxLayoutGap="13px">
+        <mat-card-title class="title-card-md">{{ 'deliveries.packages_delivered' | translate }}</mat-card-title>
+        <mat-card-content class="cards-quantity">{{packageDelivery}}</mat-card-content>       
+    </mat-card>
+
+    <mat-card fxFlex="25%" class="card-sm" fxLayout="column" fxLayoutGap="13px">
+        <mat-card-title class="title-card-md">{{ 'deliveries.packages_actives' | translate }}</mat-card-title>
+        <mat-card-content class="cards-quantity">{{packageActive}}</mat-card-content>
+    </mat-card>
+
+    <mat-card fxFlex="25%" class="card-sm" fxLayout="column" fxLayoutGap="13px">
+        <div>
+            <mat-card-title style="display: inline-block; margin-right: 10px;" class="title-card-md">{{ 'deliveries.packages_expired' | translate }}</mat-card-title>
+            <button *ngIf="packageExpired>0" routerLink="/pay" class="tooltip text-btn-res red_btn">{{ 'deliveries.packages_expired_tooltip' | translate }}</button>
+        </div>
+        <mat-card-content class="cards-quantity">{{packageExpired}}</mat-card-content>
+    </mat-card>
+
+</div>  
+<app-tableP dataForTable="{{dataTableAux}}" columns="{{dataColumn}}"></app-tableP>  
+</div>

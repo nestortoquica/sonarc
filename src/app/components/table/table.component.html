@@ -1,0 +1,100 @@
+<div *ngIf="payments" class="content-btn-report">
+    <button class="btn button-red btn-report" [disabled]="!disablePdf" [ngClass]="{'button-grey':!disablePdf, 'button-red':disablePdf}" (click)="onDialogDownloadReport()"><i class="icon fas fa-download"></i>  {{'general.download_report'|translate}}</button>
+</div>
+<mat-card class="content-table" style="margin-top: 0px; margin-bottom: 10px;">
+    <div *ngIf="!addUser" class="head-card">
+        <div class="content-search">
+            <div class="search">
+                <input (keyup)="applyFilter($event)" type="text" matInput placeholder="Buscar...">
+                <mat-icon matSuffix class="icon-search">search</mat-icon>
+            </div>
+        </div>
+        <button *ngIf="btnLocker" class="btn button-red" (click)="onCreatelocker()">Crear Locker</button>
+        <button *ngIf="btnUser && tabUser!='3'" class="btn button-red" (click)="onDialogcreateUser()">Crear Usuario</button>
+        <button *ngIf="btnCompany" class="btn button-red" (click)="onDialogcreateCompany()">Crear Compañía</button>
+        <button *ngIf="btnPayment" class="btn button-red" (click)="onDialogDownloadReport()"><i class="fas fa-download" style="color: #fff; margin-right: 5px; vertical-align: middle;"></i> Descargar reporte</button>
+        <div id="date-fields" *ngIf="payments" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="end none" fxLayoutAlign.sm="center" fxLayoutAlign.xs="center" fxLayoutGap="15px">
+            <mat-form-field class="form-date" color="accent">
+                <input matInput [matDatepicker]="picker1" 
+                [min] = "dateStartMin"
+                [max] = "dateStartMax" 
+                [formControl]="dateStart"
+                (dateChange)="addEvent('start',$event)">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="form-date" color="accent">
+                <input matInput [matDatepicker]="picker2"
+                [min] = "dateEndMin"
+                [max] = "currentDate"
+                [formControl]="dateEnd"
+                (dateChange)="addEvent('end',$event)">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2 color="primary"></mat-datepicker>
+            </mat-form-field>
+          </div>
+    </div>
+    <div class="div-table" id="idDiv" #idDiv>
+        <table mat-table [dataSource]="dataSource" matSort multiTemplateDataRows>
+            <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns;">
+                <div *ngIf="column=='check' || column=='icons'; else blockHead">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                </div>
+                <ng-template #blockHead>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="{'border-l': column!='name'}">{{'table.' + column | translate}}</th>
+                </ng-template>
+    
+                <div *ngIf="column=='photo' || column=='signature' || column=='code_access' || column=='see_event' || column=='logs' || column=='code' || column=='password'; else blockContent">
+                    <td mat-cell *matCellDef="let element">
+                        <div *ngIf="element[column] != null; then block else blockDefault"></div>
+                        <ng-template #block>
+                            <a class='link' id="{{element[column]}}" *ngIf="column=='photo' || column=='signature' || column=='logs'" (click)="onDialog(element, column)">{{'table.view' | translate}}</a>
+                            <a class='link' id="{{element[column]}}" *ngIf="column=='code_access'" (click)="onDialogCode(element.tracking, element.code_access)">{{'table.view' | translate}}</a>
+                            <a id='item_event' *ngIf="column=='see_event'" (click)="onSeeEvent(element.see_event)" class='link'>{{'table.view' | translate}}</a>
+                            <a class='link' *ngIf="column=='code' || column=='password'">{{element[column]}}</a>
+                        </ng-template>
+                        <ng-template #blockDefault><p style="width: 15px; border-bottom: 1px solid #494949;"></p></ng-template>
+                    </td>
+                </div>
+                <ng-template #blockContent>
+                    <div *ngIf="(column=='name' && typeUser!=6) || column=='see_locker' || (column=='id_locker' && (typeUser==2)); else blockDefault">
+                        <td mat-cell *matCellDef="let element">
+                            <input id="{{column}}" class="edit-input" *ngIf="column=='name' && element.flag_edit==1 && tabUser!='3'" type="text" matInput value="{{element[column]}}" style="min-width: 95px;">
+                            <a *ngIf="(column=='name' || (column=='id_locker' && (typeUser==2))) && (element.flag_edit==0 || !element.flag_edit)" class='link' (click)="onSeeLocker(element.see_locker, element[column], element.locker_name)">{{element[column]}}</a>
+                            <a *ngIf="column=='see_locker'" class='link' (click)="onSeeLocker(element.see_locker, element.name, element.id_locker)" id="{{element[column]}}">{{'table.view' | translate}}</a>
+                        </td>
+                    </div>
+                    <ng-template #blockDefault>
+                        <td mat-cell *matCellDef="let element" [ngClass]="{'check-td':column=='check'}" style="min-width: 50px;"> 
+                            <div *ngIf="column=='icons' && element.flag_hover==1 && element.flag_edit==0" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+                                <i (click)="onEditRow($event, element)" class="far fa-edit"></i>
+                                <i (click)="onDialogDelete($event, element)" class="far fa-trash-alt"></i>
+                            </div>
+                            <div *ngIf="column=='icons' && element.flag_edit== 1" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="8px">
+                                <i (click)="oncloseRow($event, element)" class="far fa-times-circle"></i>
+                                <i (click)="onSaveRow($event, element)" class="far fa-check-circle"></i>
+                            </div>
+                            <select matNativeControl matInput id="{{column}}" *ngIf="(column=='status' || column=='type_user') && element.flag_edit==1 && tabUser!='3'"
+                            [disabled]=!edit [ngClass]="{'edit-input': edit, 'margin':edit}" >
+                                <option value="{{element[column]}}">{{element[column]}}</option>
+                                <option value="test">test</option>
+                            </select>
+                            <mat-checkbox *ngIf="column=='check'" type="checkbox"  [checked]="element[column]=='true' ? true : false"></mat-checkbox>
+                            <p *ngIf="(column=='status' || column=='type_user') && (element.flag_edit==0 || typeUser==6)">{{element[column]}}</p>
+                            <p *ngIf="column!='icons' && column!='status' && column!='check' && column!='type_user'"
+                            [ngClass]="{'textBold':(column=='tracking' && typeUser==3) || (column=='id_locker' && typeUser==6) || (column=='name' && typeUser==6)}" >{{element[column]}}</p>
+                        </td>
+                    </ng-template>
+                </ng-template>
+            </ng-container>
+    
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr class="hover-row" mat-row *matRowDef="let row; columns: displayedColumns; dataIndex as i;" id="{{i}}" (mouseenter)="onMouseEnter($event,i)" (mouseleave)="mouseLeave($event, i)"></tr>
+        </table>
+    </div>
+
+    <p *ngIf="addUser" class="tab-user" (click)="onAddUser()">Añadir usuario</p>
+    <div *ngIf="notData" style="height: 300px; background: #fff;" fxLayout="column" fxLayoutAlign="center center"><img width="90px" src="\assets\images\table-empty.PNG"><p class="table-notData">No hay información suficiente aún</p></div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 15]" showFirstLastButtons></mat-paginator>    
+</mat-card>
+

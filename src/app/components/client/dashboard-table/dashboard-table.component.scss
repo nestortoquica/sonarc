@@ -1,0 +1,98 @@
+table{
+  width: 100%;
+  color: black;
+  font-family: "Noto-Ikea-Regular";
+}
+
+td:first-child, td:nth-child(2){
+  color: #0067B3;
+  span{
+    color: #0067B3 !important;
+    cursor: pointer;
+  }
+  text-decoration: underline;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.mat-card-content{
+  overflow: auto;
+}
+
+.mat-header-cell{
+  font-family: "Noto-Ikea-Bold";
+  margin: auto;
+  width: 120px;
+  text-align: center;
+  word-wrap: break-word;
+  padding: 0px 10px;
+  font-size: 14px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.mat-cell{
+  text-align: center;
+  border-right: 1px solid #f0f0f0;
+}
+
+.mat-card-header-text{
+  width: 25%;
+  text-transform: none;
+}
+.title-card{
+  text-transform: none !important;
+}
+
+#search{
+  margin-right: 5px;
+  margin-left: 10px;
+  font-size: 18px;
+  color: #858585;
+  @media (max-width: 600px){
+    display: none;;
+  }
+}
+
+.search-box{
+  background-color: #ffffff;
+    border: 1px solid #858585;
+    border-radius: 25px;
+    height: 45px;
+    width: 30%;
+    @media (max-width: 1100px){
+      width: 90%;
+    }
+    @media (max-width: 360px){
+      width: 105%;
+    }
+}
+.mat-card-header:last-child{
+  @media (max-width: 360px) {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+
+.text-center{
+  text-align: center;
+}
+
+td{
+  span{
+    color: black;
+    font-size: 15px;
+    font-family: "Noto-Sans-Regular";
+  }
+}
+
+.mat-paginator{
+  font-family: "Noto-Ikea-Regular";
+}
+.focus{
+  background-color: #f0f0f0;
+  height: 48px;
+}
+.unfocus{
+  background-color: white;
+  height: 48px;
+}

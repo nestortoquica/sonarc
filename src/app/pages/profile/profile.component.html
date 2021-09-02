@@ -1,0 +1,132 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="24px">
+        <app-msg  *ngIf="band" type_msg='{{msg.type_msg}}' text_msg='{{msg.text_msg}}'></app-msg>
+        <mat-card fxFlex>
+            <mat-card-header>
+                <mat-card-title class="title-card">Datos Generales</mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="24px" style="padding: 24px;">
+                <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="24px">
+                    <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                        <mat-label class="label">{{ 'general.firstname' | translate }}</mat-label>
+                        <input class="input-w {{styles_input}}" type="text" maxlength="30" [(ngModel)]="first_name">
+                    </div>
+                    <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                        <mat-label class="label">{{ 'general.lastname' | translate }}</mat-label>
+                        <input class="input-w {{styles_input}}" type="text" maxlength="30" [(ngModel)]="surname">
+                    </div>
+                </div>
+                <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">{{ 'general.cellphone' | translate }}</mat-label>
+                <input
+                type="text" 
+                class="input-w {{styles_input}}" 
+                maxlength="30" 
+                name="phone"
+                matInput
+                [(ngModel)]="phone">
+            </div>
+            <div fxFlex fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">{{ 'general.email' | translate }}</mat-label>
+                <input type="email"
+                class="input-w {{styles_input}}" 
+                name="email"
+                readonly
+                [(ngModel)]="email">  
+            </div>
+            <div *ngIf="user!=6" fxLayout="column" fxLayoutGap="8px">
+                <mat-label class="label">{{ 'general.emailAlternate' | translate }}</mat-label>
+                <input type="email"
+                class="input-w {{styles_input}}" 
+                name="emailAlternate"
+                [(ngModel)]="emailAlternate">  
+            </div>
+            <div fxLayout="column" fxLayoutGap="8px">
+                <mat-label style="margin-right: 10px;">{{ 'profile.lenguage' | translate }}</mat-label>
+                <select name="language"
+                class="box-input" 
+                [(ngModel)]="opcionLanguage">
+                <option *ngFor="let language of languages" [value]="language.id" selected="language.selected">
+                    {{language.value}}
+                </option>
+            </select>
+        </div>
+    </mat-card-content>
+</mat-card>
+<mat-card fxFlex *ngIf="company">
+    <mat-card-header>
+        <mat-card-title class="title-card">{{ 'profile.company' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="24px" style="padding: 24px;">
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label">TRFC</mat-label>
+            <input type="text"
+            class="input-w {{styles_input}}" 
+            name="trfc" 
+            readonly
+            [(ngModel)]="trfc"  matInput>  
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label">{{ 'profile.company_name' | translate }}</mat-label>
+            <input type="text"
+            class="input-w {{styles_input}}" 
+            name="company_name"
+            readonly
+            [(ngModel)]="company_name" matInput>
+        </div>
+    </mat-card-content>
+</mat-card> 
+<mat-card fxFlex *ngIf="news">
+    <mat-card-header>
+        <mat-card-title class="title-card">Preferencias de noticias</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="24px" style="padding: 24px;">
+        <div fxLayout="column" fxLayoutGap="6px">
+            <mat-label class="label">E-mail</mat-label>
+            <mat-slide-toggle [(ngModel)]="slideEmail" [disabled]="slideEmail"></mat-slide-toggle>
+        </div>
+        <div fxLayout="column" fxLayoutGap="6px">
+            <mat-label class="label">E-mail secundario</mat-label>
+            <mat-slide-toggle [(ngModel)]="slideEmail2"></mat-slide-toggle>
+        </div>
+        <div fxLayout="column" fxLayoutGap="6px">
+            <mat-label class="label">SMS (Mensaje de texto)</mat-label>
+            <mat-slide-toggle [(ngModel)]="slideSms"></mat-slide-toggle>
+        </div>
+    </mat-card-content>
+</mat-card>  
+
+<mat-card fxFlex>
+    <mat-card-header>
+        <mat-card-title class="title-card">{{ 'profile.cambiar_contrasena' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column" fxLayoutAlign="start start" fxLayoutGap="24px" style="padding: 24px;">
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label">{{ 'profile.new_contrasena' | translate }}</mat-label>
+            <input type="password" 
+            class="input-w {{styles_input}}" 
+            name="password"
+            maxlength="50"
+            minlength="6" 
+            matInput
+            [(ngModel)]="password">
+        </div>
+        <div fxFlex fxLayout="column" fxLayoutGap="8px">
+            <mat-label class="label">{{ 'general.repeat_password' | translate }}</mat-label>
+            <input type="password" 
+            class="input-w {{styles_input}}"
+            name="repeat_pass"
+            maxlength="50"
+            minlength="6"
+            matInput
+            [(ngModel)]="repeat_pass">
+        </div>
+    </mat-card-content>
+    <mat-card-footer fxLayoutGap="8px">
+        <button class="btn button-red" (click)="saveProfile()">Guardar</button>
+        <button class="btn btn-white" routerLink="/l-ad">Cancelar</button>
+    </mat-card-footer>
+</mat-card>
+</div>
+</div>

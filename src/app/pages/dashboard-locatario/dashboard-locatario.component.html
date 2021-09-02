@@ -1,0 +1,54 @@
+<div class="container" fxLayout="column" fxLayoutAlign="space-between none">
+    <app-menu></app-menu>
+    <div class="content-body" fxLayout="column" fxLayoutGap="36px">
+      <div class="content-cards" 
+          fxLayout="row"       
+          fxLayout.xs="column"
+          fxLayout.sm="column"
+          fxLayoutGap = "36px"
+          fxLayoutGap.xs = "0px" 
+          fxLayoutGap.sm = "0px"  >
+        <mat-card fxFlex="33%">
+          <mat-card-header>
+            <mat-card-title class="title-card">{{ 'deliveries.packages_delivered15' | translate }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-chart-spline categories="{{categories}}" responseSeries="{{dataSeries}}" seriesName="{{totals}}"></app-chart-spline>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="33%">
+          <mat-card-header>
+            <mat-card-title class="title-card" >{{ 'deliveries.carrier' | translate }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-chart-entregas arrayName="{{responseQuantityCarrierName}}" arrayY="{{responseQuantityCarrierY}}"></app-chart-entregas>
+          </mat-card-content>
+        </mat-card>
+        <mat-card fxFlex="33%">
+          <mat-card-header>
+            <mat-card-title class="title-card">{{ 'deliveries.location' | translate }}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <app-chart-entregas arrayName="{{responseQuantityLockerName}}" arrayY="{{responseQuantityLockerY}}"></app-chart-entregas>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <mat-card fxFlex>
+        <mat-card-content style="height: 400px; margin:24px;" fxLayoutGap="60px" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between stretch">        
+          <app-google-maps fxFlex  latitud="{{lat}}" longitud="{{lng}}" coords="{{arrayMarker}}" (id_locker)="lockerAddress($event)"></app-google-maps>
+          <div fxLayout="column" fxLayoutAlign=" start" fxFlex="35%" fxLayoutGap="24px">
+            <h2 class="title-locker">{{ 'dashboard.my_lockers' | translate }}</h2>
+            <mat-tab-group>
+              <mat-tab [label]="locker_name[i]"  *ngFor="let locker of locker_name; let i = index">
+                <div class="box-address">
+                  <p>{{locker_address[i]}}</p>
+                </div>
+                <button *ngIf="id_locker" class="btn button-red" (click)="onSeeLocker(id_locker, locker_name)">{{ 'dashboard.see_locker' | translate }}</button>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <app-footer></app-footer>
+  </div>

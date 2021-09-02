@@ -1,0 +1,103 @@
+app-menu{
+    z-index: 5;
+}
+
+.content-body{
+    width: 85%;
+    margin: 36px auto 0;
+    .content-cards{
+              
+        mat-card-content{
+            text-align: left;
+            .img-default{
+                text-align: center;
+                margin: 45px 0;
+                height: 119px;	
+                width: 292px;	
+                border-radius: 8px;	
+                background-color: #FFFFFF;	
+                // box-shadow: 2px 2px 13px 0 rgba(211,0,112,0.12);
+            }
+           
+        }
+    }
+}
+
+.content-table{
+    margin: auto 0px;
+    padding: 0px 15px
+}
+
+
+table{  
+    width:100%;
+}
+
+.tooltip{
+    border-radius: 8px;	
+    font-family: Lato-Heavy;
+    line-height: 13px;
+    text-transform: uppercase;	
+    padding: 6px 12px;
+    border: none;
+    outline: none;
+    cursor: pointer;	
+}
+
+.text-btn-res{
+    font-size: 12px;	
+    letter-spacing: 1.2px;
+}
+
+.text-btn-table{	
+    font-size: 11px;
+}
+
+.red_btn{
+    background-color: #FF4848;
+    color: #FFFFFF;
+}
+
+.yellow_btn{
+    background-color: #F6E558;
+    color: #000000;
+}
+
+.content-table{
+    overflow-y: hidden; 
+    overflow-x: auto;
+    padding: 0px;
+    box-shadow: 2px 2px 13px 0 rgba(211,0,112,0.12);
+
+    .mat-elevation-z8{
+        border-collapse: collapse;
+        border-radius: 8px;	
+        overflow: hidden;
+        background-color: #FFFFFF;	
+        box-shadow: 2px 2px 13px 0 rgba(211,0,112,0.12);
+        th{
+            color: #666666;	
+            font-family: Lato-Heavy;	
+            font-size: 16px;	
+            line-height: 18px;
+            text-transform: uppercase;
+        }
+        td{
+            color: #959595;	
+            font-family: Lato-Regular;	
+            font-size: 13px;	
+            line-height: 49px;
+        }
+    
+        .text-bold{
+            color: #000000;	
+            font-weight: 600;	
+            line-height: 49px;
+        }
+        
+    }
+}
+mat-paginator{
+    margin-top: 12px;
+    background: transparent !important;
+}
